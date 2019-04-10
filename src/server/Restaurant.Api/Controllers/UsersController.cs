@@ -4,6 +4,8 @@ using Restaurant.Core.Models;
 using Restaurant.Core.Services;
 using System.Net;
 using System.Threading.Tasks;
+using Restaurant.Api.Controllers._Base;
+using Restaurant.Domain;
 
 namespace Restaurant.Api.Controllers
 {

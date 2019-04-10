@@ -1,11 +1,11 @@
 ﻿using Microsoft.Extensions.Options;
 using Restaurant.Core.Configuration;
-using Restaurant.Core.Identity;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using Restaurant.Core.AuthContext;
 
 namespace Restaurant.Business.Identity
 {

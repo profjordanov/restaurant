@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Identity;
 using Optional;
 using Restaurant.Business.Extensions;
 using Restaurant.Core;
-using Restaurant.Core.Identity;
 using Restaurant.Core.Models;
 using Restaurant.Core.Services;
 using Restaurant.Domain.Entities;
@@ -11,6 +10,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Restaurant.Core.AuthContext;
+using Restaurant.Domain;
 
 namespace Restaurant.Business.Services
 {
@@ -44,7 +45,7 @@ namespace Restaurant.Business.Services
                         TokenString = JwtFactory.GenerateEncodedToken(user.Id, user.Email, new List<Claim>())
                     }.Some<JwtModel, Error>();
                 },
-                () => Option.None<JwtModel, Error>(new Error("Invalid credentials.")));
+                () => Option.None<JwtModel, Error>(Error.Unauthorized("Invalid Credetials.")));
         }
 
         public async Task<Option<UserModel, Error>> Register(RegisterUserModel model)
@@ -58,7 +59,7 @@ namespace Restaurant.Business.Services
 
             return creationResult.Match(
                 some: _ => Mapper.Map<UserModel>(user).Some<UserModel, Error>(),
-                none: errors => Option.None<UserModel, Error>(new Error(errors)));
+                none: errors => Option.None<UserModel, Error>(Error.Validation(errors)));
         }
     }
 }

@@ -10,7 +10,6 @@ using Restaurant.Api.OperationFilters;
 using Restaurant.Business.Identity;
 using Restaurant.Core.AuthContext;
 using Restaurant.Core.Configuration;
-using Restaurant.Core.Identity;
 using Restaurant.Domain.Entities;
 using Restaurant.Persistence.EntityFramework;
 using Swashbuckle.AspNetCore.Swagger;

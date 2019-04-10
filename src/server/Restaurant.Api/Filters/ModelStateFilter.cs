@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Restaurant.Core;
+using Restaurant.Domain;
 using System.Linq;
 
 namespace Restaurant.Api.Filters
@@ -20,7 +21,7 @@ namespace Restaurant.Api.Filters
                     .Values
                     .SelectMany(v => v.Errors.Select(e => e.ErrorMessage));
 
-                context.Result = new BadRequestObjectResult(new Error(errors));
+                context.Result = new BadRequestObjectResult(Error.Validation(errors));
             }
         }
     }

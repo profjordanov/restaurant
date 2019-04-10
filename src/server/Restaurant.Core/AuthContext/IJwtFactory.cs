@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
 
-namespace Restaurant.Core.Identity
+namespace Restaurant.Core.AuthContext
 {
     public interface IJwtFactory
     {

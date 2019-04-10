@@ -1,6 +1,7 @@
 ﻿using Optional;
 using Restaurant.Core.Models;
 using System.Threading.Tasks;
+using Restaurant.Domain;
 
 namespace Restaurant.Core.Services
 {
