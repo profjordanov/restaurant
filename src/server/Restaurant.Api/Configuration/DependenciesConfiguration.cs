@@ -19,6 +19,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Marten;
+using Restaurant.Api.Events;
+using Restaurant.Domain.Events._Base;
 
 namespace Restaurant.Api.Configuration
 {
@@ -114,7 +117,7 @@ namespace Restaurant.Api.Configuration
 
         public static void AddCqrs(this IServiceCollection services)
         {
-            //services.AddScoped<IEventBus, EventBus>();
+            services.AddScoped<IEventBus, EventBus>();
         }
 
         public static void AddMapper(this IServiceCollection services)
@@ -132,32 +135,32 @@ namespace Restaurant.Api.Configuration
 
         public static void AddMarten(this IServiceCollection services, IConfiguration configuration)
         {
-            //var documentStore = DocumentStore.For(options =>
-            //{
-               // var config = configuration.GetSection("EventStore");
-               // var connectionString = config.GetValue<string>("ConnectionString");
-               // var schemaName = config.GetValue<string>("Schema");
+            var documentStore = DocumentStore.For(options =>
+            {
+                var config = configuration.GetSection("EventStore");
+                var connectionString = config.GetValue<string>("ConnectionString");
+                var schemaName = config.GetValue<string>("Schema");
 
-               // options.Connection(connectionString);
-               // options.AutoCreateSchemaObjects = AutoCreate.All;
-               // options.Events.DatabaseSchemaName = schemaName;
-               // options.DatabaseSchemaName = schemaName;
+                options.Connection(connectionString);
+                options.AutoCreateSchemaObjects = AutoCreate.All;
+                options.Events.DatabaseSchemaName = schemaName;
+                options.DatabaseSchemaName = schemaName;
 
-               // options.Events.InlineProjections.AggregateStreamsWith<Tab>();
-               // options.Events.InlineProjections.Add(new TabViewProjection());
+                //options.Events.InlineProjections.AggregateStreamsWith<Tab>();
+                //options.Events.InlineProjections.Add(new TabViewProjection());
 
-               // var events = typeof(TabOpened)
-                  //  .Assembly
-                  //  .GetTypes()
-                  //  .Where(t => typeof(IEvent).IsAssignableFrom(t))
-                  //  .ToList();
+                //var events = typeof(TabOpened)
+                //  .Assembly
+                //  .GetTypes()
+                //  .Where(t => typeof(IEvent).IsAssignableFrom(t))
+                //  .ToList();
 
-               // options.Events.AddEventTypes(events);
-            //});
+                //options.Events.AddEventTypes(events);
+            });
 
-            //services.AddSingleton<IDocumentStore>(documentStore);
+            services.AddSingleton<IDocumentStore>(documentStore);
 
-            //services.AddScoped(sp => sp.GetService<IDocumentStore>().OpenSession());
+            services.AddScoped(sp => sp.GetService<IDocumentStore>().OpenSession());
         }
     }
 }
