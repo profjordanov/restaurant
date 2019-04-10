@@ -1,7 +1,7 @@
-﻿using System;
-using System.Reflection;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Optional;
+using System;
+using System.Reflection;
 
 namespace Restaurant.Api.ModelBinders
 {

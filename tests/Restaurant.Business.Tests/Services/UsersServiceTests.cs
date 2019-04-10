@@ -2,15 +2,15 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Moq;
+using Restaurant.Business.Services;
+using Restaurant.Core.Identity;
+using Restaurant.Core.Models;
+using Restaurant.Domain.Entities;
 using Shouldly;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Restaurant.Business.Services;
-using Restaurant.Core.Identity;
-using Restaurant.Core.Models;
-using Restaurant.Domain.Entities;
 using Xunit;
 
 namespace Restaurant.Business.Tests.Services

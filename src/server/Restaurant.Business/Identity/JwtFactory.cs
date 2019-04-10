@@ -1,6 +1,6 @@
-﻿using Restaurant.Core.Configuration;
+﻿using Microsoft.Extensions.Options;
+using Restaurant.Core.Configuration;
 using Restaurant.Core.Identity;
-using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;

@@ -1,6 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Optional;
+using System.ComponentModel.DataAnnotations;
 
 namespace Restaurant.Api.Controllers
 {

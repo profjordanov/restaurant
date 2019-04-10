@@ -1,9 +1,9 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Newtonsoft.Json;
 using Optional;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Restaurant.Api.ModelBinders
 {

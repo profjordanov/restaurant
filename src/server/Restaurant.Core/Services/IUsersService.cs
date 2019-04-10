@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using Optional;
 using Restaurant.Core.Models;
-using Optional;
+using System.Threading.Tasks;
 
 namespace Restaurant.Core.Services
 {

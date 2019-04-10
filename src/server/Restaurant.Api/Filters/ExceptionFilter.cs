@@ -1,8 +1,8 @@
-﻿using System.Net;
-using Restaurant.Core;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Restaurant.Core;
+using System.Net;
 
 namespace Restaurant.Api.Filters
 {

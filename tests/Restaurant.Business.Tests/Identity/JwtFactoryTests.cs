@@ -3,6 +3,8 @@ using AutoFixture.Kernel;
 using AutoFixture.Xunit2;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Restaurant.Business.Identity;
+using Restaurant.Core.Configuration;
 using Shouldly;
 using System;
 using System.Collections.Generic;
@@ -10,8 +12,6 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using Restaurant.Business.Identity;
-using Restaurant.Core.Configuration;
 using Xunit;
 
 namespace Restaurant.Business.Tests.Identity

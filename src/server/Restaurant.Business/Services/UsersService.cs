@@ -1,16 +1,16 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
+using Optional;
 using Restaurant.Business.Extensions;
 using Restaurant.Core;
 using Restaurant.Core.Identity;
 using Restaurant.Core.Models;
 using Restaurant.Core.Services;
-using Microsoft.AspNetCore.Identity;
-using Optional;
+using Restaurant.Domain.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Restaurant.Domain.Entities;
 
 namespace Restaurant.Business.Services
 {

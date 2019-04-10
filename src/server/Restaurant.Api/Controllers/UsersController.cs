@@ -1,9 +1,9 @@
-﻿using System.Net;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Mvc;
 using Restaurant.Core;
 using Restaurant.Core.Models;
 using Restaurant.Core.Services;
-using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace Restaurant.Api.Controllers
 {

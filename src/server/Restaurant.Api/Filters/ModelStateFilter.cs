@@ -1,7 +1,7 @@
-﻿using System.Linq;
-using Restaurant.Core;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Restaurant.Core;
+using System.Linq;
 
 namespace Restaurant.Api.Filters
 {
