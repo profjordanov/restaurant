@@ -1,18 +1,16 @@
-﻿using AutoMapper;
-using Restaurant.Api.Configuration;
-using Restaurant.Api.Filters;
-using Restaurant.Api.ModelBinders;
-using Restaurant.Business.Identity;
-using Restaurant.Business.Services;
-using Restaurant.Core.Configuration;
-using Restaurant.Core.Identity;
-using Restaurant.Core.Services;
+﻿using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Restaurant.Api.Configuration;
+using Restaurant.Api.Filters;
+using Restaurant.Api.ModelBinders;
+using Restaurant.Core.Configuration;
+using Restaurant.Domain.Entities;
 using Restaurant.Persistence.EntityFramework;
 using Serilog;
 
@@ -36,14 +34,20 @@ namespace Restaurant.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext(Configuration.GetConnectionString("DbConnectionString"));
-            services.AddAutoMapper();
+
+            services.AddMapper();
+
             services.AddSwagger();
+
             services.AddJwtIdentity(Configuration.GetSection(nameof(JwtConfiguration)));
 
             services.AddLogging(logBuilder => logBuilder.AddSerilog(dispose: true));
 
-            services.AddTransient<IUsersService, UsersService>();
-            services.AddTransient<IJwtFactory, JwtFactory>();
+            services.AddMarten(Configuration);
+
+            services.AddCqrs();
+
+            services.AddMediatR();
 
             services.AddMvc(options =>
             {
@@ -51,14 +55,21 @@ namespace Restaurant.Api
                 options.Filters.Add<ExceptionFilter>();
                 options.Filters.Add<ModelStateFilter>();
             })
+            //.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<RegisterValidator>())
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, ApplicationDbContext dbContext)
+        public void Configure(
+            IApplicationBuilder app,
+            IHostingEnvironment env,
+            ILoggerFactory loggerFactory,
+            ApplicationDbContext dbContext,
+            UserManager<User> userManager)
         {
             if (env.IsDevelopment())
             {
                 dbContext.Database.EnsureCreated();
+                app.AddDefaultAdminAccountIfNoneExisting(userManager, Configuration).Wait();
             }
             else
             {
@@ -68,7 +79,7 @@ namespace Restaurant.Api
             loggerFactory.AddLogging(Configuration.GetSection("Logging"));
 
             app.UseHttpsRedirection();
-            app.UseSwagger("My Web API.");
+            app.UseSwagger("Restaurant");
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseMvc();
