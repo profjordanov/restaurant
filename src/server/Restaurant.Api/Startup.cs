@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 using Restaurant.Api.Configuration;
 using Restaurant.Api.Filters;
 using Restaurant.Api.ModelBinders;
-using Restaurant.Core.Configuration;
+using Restaurant.Core.AuthContext.Configuration;
 using Restaurant.Domain.Entities;
 using Restaurant.Persistence.EntityFramework;
 using Serilog;
