@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using FluentValidation.AspNetCore;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -9,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Restaurant.Api.Configuration;
 using Restaurant.Api.Filters;
 using Restaurant.Api.ModelBinders;
+using Restaurant.Core.AuthContext.Commands;
 using Restaurant.Core.AuthContext.Configuration;
 using Restaurant.Domain.Entities;
 using Restaurant.Persistence.EntityFramework;
@@ -55,7 +57,7 @@ namespace Restaurant.Api
                 options.Filters.Add<ExceptionFilter>();
                 options.Filters.Add<ModelStateFilter>();
             })
-            //.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<RegisterValidator>())
+            .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<RegisterValidator>())
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

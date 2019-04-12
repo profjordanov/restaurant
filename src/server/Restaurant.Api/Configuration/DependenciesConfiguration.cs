@@ -7,7 +7,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Restaurant.Api.OperationFilters;
-using Restaurant.Business.Identity;
 using Restaurant.Core.AuthContext;
 using Restaurant.Domain.Entities;
 using Restaurant.Persistence.EntityFramework;
@@ -19,6 +18,7 @@ using System.Linq;
 using System.Text;
 using Marten;
 using Restaurant.Api.Events;
+using Restaurant.Business.AuthContext;
 using Restaurant.Core.AuthContext.Configuration;
 using Restaurant.Domain.Events._Base;
 
