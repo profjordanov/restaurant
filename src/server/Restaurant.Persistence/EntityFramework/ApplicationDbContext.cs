@@ -11,5 +11,31 @@ namespace Restaurant.Persistence.EntityFramework
             : base (options)
         {
         }
+
+        public DbSet<Rating> Ratings { get; set; }
+
+        public DbSet<Town> Towns { get; set; }
+
+        public DbSet<Domain.Entities.Restaurant> Restaurants { get; set; }
+
+        public DbSet<Meal> Meals { get; set; }
+
+        public DbSet<MealType> MealTypes { get; set; }
+
+        public DbSet<Order> Orders { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ConfigureMealRestaurantRelations();
+            modelBuilder.ConfigureMealAndTypeRelations();
+            modelBuilder.ConfigureMealOrderRelations();
+            modelBuilder.ConfigureUserOrdersRelations();
+            modelBuilder.ConfigureRatingIndexes();
+            modelBuilder.ConfigureUserRatingRelations();
+            modelBuilder.ConfigureRestaurantRatingRelations();
+            modelBuilder.ConfigureRestaurantTownRelations();
+            modelBuilder.ConfigureRestaurantOwnerRelations();
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

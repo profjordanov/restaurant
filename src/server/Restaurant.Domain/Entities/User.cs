@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
+using System.Collections.Generic;
 
 namespace Restaurant.Domain.Entities
 {
@@ -10,5 +11,11 @@ namespace Restaurant.Domain.Entities
         public string LastName { get; set; }
 
         public DateTime RegistrationDate { get; set; }
+
+        public virtual ICollection<Rating> GivenRatings { get; set; } = new HashSet<Rating>();
+
+        public virtual ICollection<Order> MadeOrders { get; set; } = new HashSet<Order>();
+
+        public virtual ICollection<Restaurant> OwnedRestaurants { get; set; } = new HashSet<Restaurant>();
     }
 }
