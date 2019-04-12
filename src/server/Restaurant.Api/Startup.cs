@@ -33,7 +33,7 @@ namespace Restaurant.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext(Configuration.GetConnectionString("DbConnectionString"));
+            services.AddDbContext(Configuration.GetConnectionString("DefaultConnection"));
 
             services.AddMapper();
 
