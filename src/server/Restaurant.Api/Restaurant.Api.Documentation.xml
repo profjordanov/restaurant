@@ -40,6 +40,11 @@
             <response code="201">A user was created.</response>
             <response code="400">Invalid input.</response>
         </member>
+        <member name="M:Restaurant.Api.Controllers._Base.ApiController.Ok(MediatR.Unit)">
+            <summary>
+            Enables using method groups when matching on Unit.
+            </summary>
+        </member>
         <member name="T:Restaurant.Api.OperationFilters.OptionOperationFilter">
             <summary>
             This operation filter only works on <see cref="T:Optional.Option"/> types that are contained in a class.

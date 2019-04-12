@@ -1,7 +1,7 @@
-﻿using Microsoft.IdentityModel.Tokens;
-using System;
+﻿using System;
+using Microsoft.IdentityModel.Tokens;
 
-namespace Restaurant.Core.Configuration
+namespace Restaurant.Core.AuthContext.Configuration
 {
     public class JwtConfiguration
     {
