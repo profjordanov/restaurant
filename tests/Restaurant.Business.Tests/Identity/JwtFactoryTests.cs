@@ -3,7 +3,6 @@ using AutoFixture.Kernel;
 using AutoFixture.Xunit2;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Restaurant.Business.Identity;
 using Shouldly;
 using System;
 using System.Collections.Generic;
@@ -11,6 +10,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using Restaurant.Business.AuthContext;
 using Restaurant.Core.AuthContext.Configuration;
 using Xunit;
 

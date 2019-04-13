@@ -4,6 +4,24 @@
         <name>Restaurant.Api</name>
     </assembly>
     <members>
+        <member name="M:Restaurant.Api.Controllers.AuthController.Login(Restaurant.Core.AuthContext.Commands.Login)">
+            <summary>
+            Login.
+            </summary>
+            <param name="command">The credentials.</param>
+            <returns>A JWT.</returns>
+            <response code="200">If the credentials have a match.</response>
+            <response code="400">If the credentials don't match/don't meet the requirements.</response>
+        </member>
+        <member name="M:Restaurant.Api.Controllers.AuthController.Register(Restaurant.Core.AuthContext.Commands.Register)">
+            <summary>
+            Register.
+            </summary>
+            <param name="command">The user model.</param>
+            <returns>A user model.</returns>
+            <response code="201">A user was created.</response>
+            <response code="400">Invalid input.</response>
+        </member>
         <member name="M:Restaurant.Api.Controllers.OptionController.Get(Restaurant.Api.Controllers.OptionController.ParametersDemo)">
             <summary>
             Demonstrates the Option model binding with query string parameters.
@@ -21,24 +39,6 @@
             having something like Get([FromQuery] Option&lt;string&gt; text), it's going to work,
             it's just that it will not be properly displayed in the Swagger UI.
             </summary>
-        </member>
-        <member name="M:Restaurant.Api.Controllers.UsersController.Login(Restaurant.Core.Models.LoginUserModel)">
-            <summary>
-            Login.
-            </summary>
-            <param name="model">The credentials.</param>
-            <returns>A JWT token.</returns>
-            <response code="200">If the credentials have a match.</response>
-            <response code="400">If the credentials don't match/don't meet the requirements.</response>
-        </member>
-        <member name="M:Restaurant.Api.Controllers.UsersController.Register(Restaurant.Core.Models.RegisterUserModel)">
-            <summary>
-            Register.
-            </summary>
-            <param name="model">The user model.</param>
-            <returns>A user model.</returns>
-            <response code="201">A user was created.</response>
-            <response code="400">Invalid input.</response>
         </member>
         <member name="M:Restaurant.Api.Controllers._Base.ApiController.Ok(MediatR.Unit)">
             <summary>

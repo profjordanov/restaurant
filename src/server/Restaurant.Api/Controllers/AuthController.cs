@@ -1,49 +1,50 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Restaurant.Core;
-using Restaurant.Core.Models;
-using Restaurant.Core.Services;
-using System.Net;
+﻿using System.Net;
 using System.Threading.Tasks;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Restaurant.Api.Controllers._Base;
+using Restaurant.Core.AuthContext.Commands;
 using Restaurant.Domain;
+using Restaurant.Domain.Views.Auth;
 
 namespace Restaurant.Api.Controllers
 {
-    public class UsersController : ApiController
+    [Route("api/[controller]")]
+    [ApiController]
+    public class AuthController : ApiController
     {
-        private readonly IUsersService _usersService;
+        private readonly IMediator _mediator;
 
-        public UsersController(IUsersService usersService)
+        public AuthController(IMediator mediator)
         {
-            _usersService = usersService;
+            _mediator = mediator;
         }
 
         /// <summary>
         /// Login.
         /// </summary>
-        /// <param name="model">The credentials.</param>
-        /// <returns>A JWT token.</returns>
+        /// <param name="command">The credentials.</param>
+        /// <returns>A JWT.</returns>
         /// <response code="200">If the credentials have a match.</response>
         /// <response code="400">If the credentials don't match/don't meet the requirements.</response>
         [HttpPost("login")]
-        [ProducesResponseType(typeof(JwtModel), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(JwtView), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(Error), (int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> Login([FromBody] LoginUserModel model) =>
-            (await _usersService.Login(model))
+        public async Task<IActionResult> Login([FromBody] Login command) =>
+            (await _mediator.Send(command))
             .Match(Ok, Error);
 
         /// <summary>
         /// Register.
         /// </summary>
-        /// <param name="model">The user model.</param>
+        /// <param name="command">The user model.</param>
         /// <returns>A user model.</returns>
         /// <response code="201">A user was created.</response>
         /// <response code="400">Invalid input.</response>
         [HttpPost("register")]
-        [ProducesResponseType(typeof(UserModel), (int)HttpStatusCode.Created)]
         [ProducesResponseType(typeof(Error), (int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> Register([FromBody] RegisterUserModel model) =>
-            (await _usersService.Register(model))
+        public async Task<IActionResult> Register([FromBody] Register command) =>
+            (await _mediator.Send(command))
             .Match(u => CreatedAtAction(nameof(Register), u), Error);
     }
 }
