@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using Restaurant.Domain._Base;
 
 namespace Restaurant.Domain.Entities
 {
-    public class Restaurant
+    public class Restaurant : IAggregate
     {
         public int Id { get; set; }
 
