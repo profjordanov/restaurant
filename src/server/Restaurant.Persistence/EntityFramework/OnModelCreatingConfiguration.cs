@@ -5,6 +5,13 @@ namespace Restaurant.Persistence.EntityFramework
 {
     internal static class OnModelCreatingConfiguration
     {
+        internal static void ConfigureGuidPrimaryKeys(this ModelBuilder builder)
+        {
+            builder.Entity<User>().Property(p => p.Id).ValueGeneratedOnAdd();
+            builder.Entity<Role>().Property(p => p.Id).ValueGeneratedOnAdd();
+
+        }
+
         internal static void ConfigureMealRestaurantRelations(this ModelBuilder builder)
         {
             builder

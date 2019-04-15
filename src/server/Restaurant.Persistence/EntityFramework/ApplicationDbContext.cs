@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Restaurant.Domain.Entities;
 
 namespace Restaurant.Persistence.EntityFramework
 {
-    public class ApplicationDbContext : IdentityDbContext<User, IdentityRole, string>
+    public class ApplicationDbContext : IdentityDbContext<User, Role, Guid>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base (options)
@@ -26,6 +27,7 @@ namespace Restaurant.Persistence.EntityFramework
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ConfigureGuidPrimaryKeys();
             modelBuilder.ConfigureMealRestaurantRelations();
             modelBuilder.ConfigureMealAndTypeRelations();
             modelBuilder.ConfigureMealOrderRelations();

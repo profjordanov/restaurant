@@ -17,6 +17,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Marten;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Restaurant.Api.Events;
 using Restaurant.Business.AuthContext;
 using Restaurant.Core.AuthContext.Configuration;
@@ -36,6 +37,13 @@ namespace Restaurant.Api.Configuration
             services.AddDbContext<ApplicationDbContext>(opts =>
                 opts.UseNpgsql(connectionString)
                     .EnableSensitiveDataLogging());
+
+            services.AddIdentity<User, Role>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders()
+                .AddUserStore<UserStore<User, Role, ApplicationDbContext, Guid>>()
+                .AddRoleStore<RoleStore<Role, ApplicationDbContext, Guid>>();
+
         }
 
         public static void AddJwtIdentity(this IServiceCollection services, IConfigurationSection jwtConfiguration)
