@@ -1,6 +1,7 @@
 ﻿using Restaurant.Domain._Base;
 using System;
 using System.Collections.Generic;
+using Restaurant.Domain.Events.Restaurant;
 
 namespace Restaurant.Domain.Entities
 {
@@ -19,5 +20,15 @@ namespace Restaurant.Domain.Entities
         public virtual ICollection<Rating> Ratings { get; set; } = new HashSet<Rating>();
 
         public virtual ICollection<Meal> Meals { get; set; } = new HashSet<Meal>();
+
+        public RestaurantRegistered RegisterRestaurant() =>
+            new RestaurantRegistered
+            {
+                RestaurantId = Id,
+                Name = Name,
+                Town = Town.Name,
+                Owner = $"{Owner.FirstName} {Owner.LastName}",
+                Date = DateTime.UtcNow
+            };
     }
 }

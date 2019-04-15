@@ -44,7 +44,8 @@ namespace Restaurant.Api.Configuration
             services.AddTransient<IJwtFactory, JwtFactory>();
 
             services.AddIdentity<User, IdentityRole>()
-                    .AddEntityFrameworkStores<ApplicationDbContext>();
+                    .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
 
             var signingKey = new SymmetricSecurityKey(
                 Encoding.Default.GetBytes(jwtConfiguration["Secret"]));

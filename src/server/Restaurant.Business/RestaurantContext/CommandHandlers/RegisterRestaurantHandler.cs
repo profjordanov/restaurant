@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation;
@@ -28,17 +29,19 @@ namespace Restaurant.Business.RestaurantContext.CommandHandlers
         {
         }
 
-        public override Task<Option<Unit, Error>> Handle(RegisterRestaurant command)
-        {
-            throw new System.NotImplementedException();
-        }
+        public override Task<Option<Unit, Error>> Handle(RegisterRestaurant command) =>
+            RestaurantWithCurrentNameAndTownShouldNotExist(command.Name, command.TownId)
+                .FlatMapAsync(restaurant =>
+                    TownWithCurrentIdShouldExist(command.TownId)).FlatMapAsync(_ =>
+                    PersistRestaurantAsync(command)).MapAsync(restaurant =>
+                    PublishEvents(restaurant.Id, restaurant.RegisterRestaurant()));
 
         private Task<Option<Domain.Entities.Restaurant, Error>> RestaurantWithCurrentNameAndTownShouldNotExist(
             string name,
             string townId) =>
             DbContext
                 .Restaurants
-                .FirstOrDefaultAsync(restaurant => restaurant.Name == name &&
+                .SingleOrDefault(restaurant => restaurant.Name == name &&
                                                    restaurant.TownId.ToString() == townId)
                 .SomeWhenAsync(async restaurant => restaurant == null, Error.Conflict($"Restaurant {name} already exists."))
                 .MapAsync(async _ => new Domain.Entities.Restaurant());

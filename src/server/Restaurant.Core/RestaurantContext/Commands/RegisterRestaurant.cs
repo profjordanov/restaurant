@@ -7,7 +7,7 @@ namespace Restaurant.Core.RestaurantContext.Commands
     {
         public string Name { get; set; }
 
-        public int TownId { get; set; }
+        public string TownId { get; set; }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string OwnerId { get; set; }
