@@ -7,9 +7,35 @@ namespace Restaurant.Persistence.EntityFramework
     {
         internal static void ConfigureGuidPrimaryKeys(this ModelBuilder builder)
         {
-            builder.Entity<User>().Property(p => p.Id).ValueGeneratedOnAdd();
-            builder.Entity<Role>().Property(p => p.Id).ValueGeneratedOnAdd();
+            builder
+                .Entity<Domain.Entities.Restaurant>()
+                .Property(p => p.Id)
+                .ValueGeneratedOnAdd();
 
+            builder
+                .Entity<Meal>()
+                .Property(p => p.Id)
+                .ValueGeneratedOnAdd();
+
+            builder
+                .Entity<MealType>()
+                .Property(p => p.Id)
+                .ValueGeneratedOnAdd();
+
+            builder
+                .Entity<Order>()
+                .Property(p => p.Id)
+                .ValueGeneratedOnAdd();
+
+            builder
+                .Entity<Rating>()
+                .Property(p => p.Id)
+                .ValueGeneratedOnAdd();
+
+            builder
+                .Entity<Town>()
+                .Property(p => p.Id)
+                .ValueGeneratedOnAdd();
         }
 
         internal static void ConfigureMealRestaurantRelations(this ModelBuilder builder)

@@ -35,18 +35,18 @@ namespace Restaurant.Business.RestaurantContext.CommandHandlers
 
         private Task<Option<Domain.Entities.Restaurant, Error>> RestaurantWithCurrentNameAndTownShouldNotExist(
             string name,
-            int townId) =>
+            string townId) =>
             DbContext
                 .Restaurants
                 .FirstOrDefaultAsync(restaurant => restaurant.Name == name &&
-                                                   restaurant.TownId == townId)
+                                                   restaurant.TownId.ToString() == townId)
                 .SomeWhenAsync(async restaurant => restaurant == null, Error.Conflict($"Restaurant {name} already exists."))
                 .MapAsync(async _ => new Domain.Entities.Restaurant());
 
-        private Task<Option<Town, Error>> TownWithCurrentIdShouldExist(int townId) =>
+        private Task<Option<Town, Error>> TownWithCurrentIdShouldExist(string townId) =>
             DbContext
                 .Towns
-                .SingleOrDefaultAsync(town => town.Id == townId)
+                .SingleOrDefaultAsync(town => town.Id.ToString() == townId)
                 .SomeNotNull(Error.Validation($"No town with id {townId} was found."));
 
         private async Task<Option<Domain.Entities.Restaurant, Error>> PersistRestaurantAsync(RegisterRestaurant command)

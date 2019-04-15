@@ -37,13 +37,6 @@ namespace Restaurant.Api.Configuration
             services.AddDbContext<ApplicationDbContext>(opts =>
                 opts.UseNpgsql(connectionString)
                     .EnableSensitiveDataLogging());
-
-            services.AddIdentity<User, Role>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders()
-                .AddUserStore<UserStore<User, Role, ApplicationDbContext, Guid>>()
-                .AddRoleStore<RoleStore<Role, ApplicationDbContext, Guid>>();
-
         }
 
         public static void AddJwtIdentity(this IServiceCollection services, IConfigurationSection jwtConfiguration)

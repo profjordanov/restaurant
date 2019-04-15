@@ -1,15 +1,16 @@
-﻿using System.Collections.Generic;
-using Restaurant.Domain._Base;
+﻿using Restaurant.Domain._Base;
+using System;
+using System.Collections.Generic;
 
 namespace Restaurant.Domain.Entities
 {
     public class Restaurant : IAggregate
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         public string Name { get; set; }
 
-        public int TownId { get; set; }
+        public Guid TownId { get; set; }
         public virtual Town Town { get; set; }
 
         public string OwnerId { get; set; }

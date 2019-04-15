@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Restaurant.Domain.Entities
 {
-    public class User : IdentityUser<Guid>
+    public class User : IdentityUser<string>
     {
         public string FirstName { get; set; }
 

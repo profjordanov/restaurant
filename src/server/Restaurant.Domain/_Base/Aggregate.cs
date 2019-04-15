@@ -1,11 +1,12 @@
-﻿using Restaurant.Domain.Events._Base;
+﻿using System;
+using Restaurant.Domain.Events._Base;
 using System.Collections.Generic;
 
 namespace Restaurant.Domain._Base
 {
-    public class Aggregate : IAggregate
+    public class Aggregate
     {
-        public int Id { get; set; }
+        public Guid Id { get; protected set; }
 
         public Queue<IEvent> PendingEvents { get; private set; } = new Queue<IEvent>();
     }
