@@ -1,12 +1,7 @@
-﻿using System;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using FluentValidation;
 using Marten;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Optional;
 using Optional.Async;
 using Restaurant.Core.RestaurantContext.Commands;
@@ -14,6 +9,11 @@ using Restaurant.Domain;
 using Restaurant.Domain.Entities;
 using Restaurant.Domain.Events._Base;
 using Restaurant.Persistence.EntityFramework;
+using System;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
+using IDocumentSession = Marten.IDocumentSession;
 
 namespace Restaurant.Business.RestaurantContext.CommandHandlers
 {
@@ -48,8 +48,7 @@ namespace Restaurant.Business.RestaurantContext.CommandHandlers
 
         private Task<Option<Town, Error>> TownWithCurrentIdShouldExist(string townId) =>
             DbContext
-                .Towns
-                .SingleOrDefaultAsync(town => town.Id.ToString() == townId)
+                .FindAsync<Town>(Guid.Parse(townId))
                 .SomeNotNull(Error.Validation($"No town with id {townId} was found."));
 
         private async Task<Option<Domain.Entities.Restaurant, Error>> PersistRestaurantAsync(RegisterRestaurant command)

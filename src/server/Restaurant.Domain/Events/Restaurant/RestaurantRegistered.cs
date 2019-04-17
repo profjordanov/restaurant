@@ -9,9 +9,9 @@ namespace Restaurant.Domain.Events.Restaurant
 
         public string Name { get; set; }
 
-        public string Town { get; set; }
+        public Guid TownId { get; set; }
 
-        public string Owner { get; set; }
+        public string OwnerId { get; set; }
 
         public DateTime Date { get; set; }
     }

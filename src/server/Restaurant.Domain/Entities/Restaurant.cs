@@ -26,8 +26,8 @@ namespace Restaurant.Domain.Entities
             {
                 RestaurantId = Id,
                 Name = Name,
-                Town = Town.Name,
-                Owner = $"{Owner.FirstName} {Owner.LastName}",
+                TownId = TownId,
+                OwnerId = OwnerId,
                 Date = DateTime.UtcNow
             };
     }

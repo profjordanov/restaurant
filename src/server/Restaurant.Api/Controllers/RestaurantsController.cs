@@ -31,7 +31,7 @@ namespace Restaurant.Api.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> RegisterRestaurant([FromBody] RegisterRestaurant command)
         {
-            var identityUser = await _userManager.GetUserAsync(HttpContext.User);
+            var identityUser = await _userManager.GetUserAsync(HttpContext.User); //TODO In Base
             command.OwnerId = identityUser.Id;
 
             return (await _mediator.Send(command))
