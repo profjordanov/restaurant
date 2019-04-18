@@ -17,6 +17,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Marten;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Restaurant.Api.Events;
 using Restaurant.Business.AuthContext;
 using Restaurant.Core.AuthContext.Configuration;
@@ -43,7 +44,8 @@ namespace Restaurant.Api.Configuration
             services.AddTransient<IJwtFactory, JwtFactory>();
 
             services.AddIdentity<User, IdentityRole>()
-                    .AddEntityFrameworkStores<ApplicationDbContext>();
+                    .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
 
             var signingKey = new SymmetricSecurityKey(
                 Encoding.Default.GetBytes(jwtConfiguration["Secret"]));

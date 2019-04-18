@@ -1,7 +1,9 @@
-﻿namespace Restaurant.Domain._Base
+﻿using System;
+
+namespace Restaurant.Domain._Base
 {
     public interface IAggregate
     {
-        int Id { get; set; }
+        Guid Id { get; set; }
     }
 }

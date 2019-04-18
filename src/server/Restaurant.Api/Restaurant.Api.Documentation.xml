@@ -40,6 +40,11 @@
             it's just that it will not be properly displayed in the Swagger UI.
             </summary>
         </member>
+        <member name="M:Restaurant.Api.Controllers.RestaurantsController.RegisterRestaurant(Restaurant.Core.RestaurantContext.Commands.RegisterRestaurant)">
+            <summary>
+            Creates a new restaurant.
+            </summary>
+        </member>
         <member name="M:Restaurant.Api.Controllers._Base.ApiController.Ok(MediatR.Unit)">
             <summary>
             Enables using method groups when matching on Unit.

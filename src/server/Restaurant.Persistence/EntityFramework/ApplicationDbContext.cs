@@ -26,6 +26,9 @@ namespace Restaurant.Persistence.EntityFramework
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.ConfigureGuidPrimaryKeys();
             modelBuilder.ConfigureMealRestaurantRelations();
             modelBuilder.ConfigureMealAndTypeRelations();
             modelBuilder.ConfigureMealOrderRelations();
@@ -35,7 +38,6 @@ namespace Restaurant.Persistence.EntityFramework
             modelBuilder.ConfigureRestaurantRatingRelations();
             modelBuilder.ConfigureRestaurantTownRelations();
             modelBuilder.ConfigureRestaurantOwnerRelations();
-            base.OnModelCreating(modelBuilder);
         }
     }
 }

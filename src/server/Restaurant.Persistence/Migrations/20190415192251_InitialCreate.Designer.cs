@@ -10,8 +10,8 @@ using Restaurant.Persistence.EntityFramework;
 namespace Restaurant.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190412193440_initial")]
-    partial class initial
+    [Migration("20190415192251_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -130,7 +130,7 @@ namespace Restaurant.Persistence.Migrations
 
             modelBuilder.Entity("Restaurant.Domain.Entities.Meal", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Name")
@@ -138,9 +138,9 @@ namespace Restaurant.Persistence.Migrations
 
                     b.Property<decimal>("Price");
 
-                    b.Property<int>("RestaurantId");
+                    b.Property<Guid>("RestaurantId");
 
-                    b.Property<int>("TypeId");
+                    b.Property<Guid>("TypeId");
 
                     b.HasKey("Id");
 
@@ -153,7 +153,7 @@ namespace Restaurant.Persistence.Migrations
 
             modelBuilder.Entity("Restaurant.Domain.Entities.MealType", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Name");
@@ -165,12 +165,12 @@ namespace Restaurant.Persistence.Migrations
 
             modelBuilder.Entity("Restaurant.Domain.Entities.Order", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("CreatedOn");
 
-                    b.Property<int>("MealId");
+                    b.Property<Guid>("MealId");
 
                     b.Property<int>("OrderStatus");
 
@@ -189,10 +189,10 @@ namespace Restaurant.Persistence.Migrations
 
             modelBuilder.Entity("Restaurant.Domain.Entities.Rating", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("RestaurantId");
+                    b.Property<Guid>("RestaurantId");
 
                     b.Property<int>("Stars");
 
@@ -210,14 +210,14 @@ namespace Restaurant.Persistence.Migrations
 
             modelBuilder.Entity("Restaurant.Domain.Entities.Restaurant", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Name");
 
                     b.Property<string>("OwnerId");
 
-                    b.Property<int>("TownId");
+                    b.Property<Guid>("TownId");
 
                     b.HasKey("Id");
 
@@ -230,7 +230,7 @@ namespace Restaurant.Persistence.Migrations
 
             modelBuilder.Entity("Restaurant.Domain.Entities.Town", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Name");

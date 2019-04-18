@@ -22,4 +22,9 @@
     <ProjectReference Include="..\Restaurant.Domain\Restaurant.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="RestaurantContext\HttpRequests\" />
+    <Folder Include="RestaurantContext\Queries\" />
+  </ItemGroup>
+
 </Project>
