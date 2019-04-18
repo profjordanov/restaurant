@@ -29,7 +29,7 @@ namespace Restaurant.Api.Controllers
         }
 
         /// <summary>
-        /// Creates a new restaurant.
+        /// Creates a new restaurant and publishes an events. 
         /// </summary>
         /// <response code="200">If the request passes the validations.</response>
         /// <response code="400">If town with current ID does not exist.</response>
