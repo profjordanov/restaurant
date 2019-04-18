@@ -23,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="RestaurantContext\HttpRequests\" />
     <Folder Include="RestaurantContext\Queries\" />
   </ItemGroup>
 

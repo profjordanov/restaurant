@@ -40,7 +40,7 @@
             it's just that it will not be properly displayed in the Swagger UI.
             </summary>
         </member>
-        <member name="M:Restaurant.Api.Controllers.RestaurantsController.RegisterRestaurant(Restaurant.Core.RestaurantContext.Commands.RegisterRestaurant)">
+        <member name="M:Restaurant.Api.Controllers.RestaurantsController.RegisterRestaurant(Restaurant.Core.RestaurantContext.HttpRequests.RegisterRestaurantRequest)">
             <summary>
             Creates a new restaurant.
             </summary>

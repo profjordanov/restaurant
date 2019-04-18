@@ -1,11 +1,15 @@
-﻿using MediatR;
+﻿using System.Net;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Restaurant.Core.RestaurantContext.Commands;
 using System.Threading.Tasks;
 using Restaurant.Api.Controllers._Base;
+using Restaurant.Core.RestaurantContext.HttpRequests;
+using Restaurant.Domain;
 using Restaurant.Domain.Entities;
+using Restaurant.Domain.Views.Auth;
 
 namespace Restaurant.Api.Controllers
 {
@@ -29,10 +33,14 @@ namespace Restaurant.Api.Controllers
         /// Creates a new restaurant.
         /// </summary>
         [HttpPost("register")]
-        public async Task<IActionResult> RegisterRestaurant([FromBody] RegisterRestaurant command)
+        [ProducesResponseType(typeof(Unit), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(Error), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(Error), (int)HttpStatusCode.Conflict)]
+        public async Task<IActionResult> RegisterRestaurant([FromBody] RegisterRestaurantRequest request)
         {
-            var identityUser = await _userManager.GetUserAsync(HttpContext.User); //TODO In Base
-            command.OwnerId = identityUser.Id;
+            var identityUser = await _userManager.GetUserAsync(HttpContext.User);
+
+            var command = new RegisterRestaurant(request.Name, request.TownId, identityUser.Id);
 
             return (await _mediator.Send(command))
                 .Match(Ok, Error);

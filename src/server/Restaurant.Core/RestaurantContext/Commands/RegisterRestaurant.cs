@@ -1,15 +1,21 @@
-﻿using Newtonsoft.Json;
-using Restaurant.Core._Base;
+﻿using Restaurant.Core._Base;
+using Restaurant.Core.RestaurantContext.HttpRequests;
 
 namespace Restaurant.Core.RestaurantContext.Commands
 {
-    public class RegisterRestaurant : ICommand
+    public class RegisterRestaurant : RegisterRestaurantRequest, ICommand
     {
-        public string Name { get; set; }
+        public RegisterRestaurant()
+        {
+        }
 
-        public string TownId { get; set; }
+        public RegisterRestaurant(string name, string townId, string ownerId)
+        {
+            Name = name;
+            TownId = townId;
+            OwnerId = ownerId;
+        }
 
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string OwnerId { get; set; }
     }
 }
