@@ -44,6 +44,9 @@
             <summary>
             Creates a new restaurant.
             </summary>
+            <response code="200">If the request passes the validations.</response>
+            <response code="400">If town with current ID does not exist.</response>
+            <response code="409">If restaurant with current name and town already exist.</response>
         </member>
         <member name="M:Restaurant.Api.Controllers._Base.ApiController.Ok(MediatR.Unit)">
             <summary>

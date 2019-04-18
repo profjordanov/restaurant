@@ -1,15 +1,14 @@
-﻿using System.Net;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Restaurant.Core.RestaurantContext.Commands;
-using System.Threading.Tasks;
 using Restaurant.Api.Controllers._Base;
+using Restaurant.Core.RestaurantContext.Commands;
 using Restaurant.Core.RestaurantContext.HttpRequests;
 using Restaurant.Domain;
 using Restaurant.Domain.Entities;
-using Restaurant.Domain.Views.Auth;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace Restaurant.Api.Controllers
 {
@@ -32,6 +31,9 @@ namespace Restaurant.Api.Controllers
         /// <summary>
         /// Creates a new restaurant.
         /// </summary>
+        /// <response code="200">If the request passes the validations.</response>
+        /// <response code="400">If town with current ID does not exist.</response>
+        /// <response code="409">If restaurant with current name and town already exist.</response>
         [HttpPost("register")]
         [ProducesResponseType(typeof(Unit), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(Error), (int)HttpStatusCode.BadRequest)]
