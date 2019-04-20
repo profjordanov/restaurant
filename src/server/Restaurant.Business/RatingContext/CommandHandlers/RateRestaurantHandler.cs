@@ -23,7 +23,6 @@ namespace Restaurant.Business.RatingContext.CommandHandlers
 
         public RateRestaurantHandler(
             IValidator<RateRestaurant> validator,
-            ApplicationDbContext dbContext,
             IDocumentSession documentSession,
             IEventBus eventBus,
             IMapper mapper,

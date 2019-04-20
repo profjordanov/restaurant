@@ -22,6 +22,13 @@
             <response code="201">A user was created.</response>
             <response code="400">Invalid input.</response>
         </member>
+        <member name="M:Restaurant.Api.Controllers.MealsController.RegisterMeal(Restaurant.Core.MealContext.HttpRequests.RegisterMealRequest)">
+            <summary>
+            
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
         <member name="M:Restaurant.Api.Controllers.OptionController.Get(Restaurant.Api.Controllers.OptionController.ParametersDemo)">
             <summary>
             Demonstrates the Option model binding with query string parameters.

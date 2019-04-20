@@ -10,8 +10,16 @@ using Microsoft.IdentityModel.Tokens;
 using Restaurant.Api.Events;
 using Restaurant.Api.OperationFilters;
 using Restaurant.Business.AuthContext;
+using Restaurant.Business.MealContext;
+using Restaurant.Business.RatingContext;
+using Restaurant.Business.RestaurantContext;
+using Restaurant.Business.TownContext;
 using Restaurant.Core.AuthContext;
 using Restaurant.Core.AuthContext.Configuration;
+using Restaurant.Core.MealContext;
+using Restaurant.Core.RatingContext;
+using Restaurant.Core.RestaurantContext;
+using Restaurant.Core.TownContext;
 using Restaurant.Domain.Entities;
 using Restaurant.Domain.Events._Base;
 using Restaurant.Domain.Events.Restaurant;
@@ -22,12 +30,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Restaurant.Business.RatingContext;
-using Restaurant.Business.RestaurantContext;
-using Restaurant.Business.TownContext;
-using Restaurant.Core.RatingContext;
-using Restaurant.Core.RestaurantContext;
-using Restaurant.Core.TownContext;
+using Restaurant.Business.MealTypeContext;
+using Restaurant.Core.MealTypeContext;
 using MappingProfile = Restaurant.Core.AuthContext.MappingProfile;
 
 namespace Restaurant.Api.Configuration
@@ -146,6 +150,8 @@ namespace Restaurant.Api.Configuration
             services.AddTransient<IRestaurantRepository, RestaurantRepository>();
             services.AddTransient<ITownRepository, TownRepository>();
             services.AddTransient<IRatingRepository, RatingRepository>();
+            services.AddTransient<IMealRepository, MealRepository>();
+            services.AddTransient<IMealTypeRepository, MealTypeRepository>();
         }
 
         public static void AddMarten(this IServiceCollection services, IConfiguration configuration)
@@ -163,6 +169,7 @@ namespace Restaurant.Api.Configuration
 
                 options.Events.InlineProjections.AggregateStreamsWith<Domain.Entities.Restaurant>();
                 options.Events.InlineProjections.AggregateStreamsWith<Rating>();
+                options.Events.InlineProjections.AggregateStreamsWith<Meal>();
 
                 //options.Events.InlineProjections.Add(new TabViewProjection());
 
