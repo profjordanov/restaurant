@@ -35,5 +35,14 @@ namespace Restaurant.Domain.Entities
                 OwnerId = OwnerId,
                 Date = DateTime.UtcNow
             };
+
+        public void Apply(RestaurantRegistered @event)
+        {
+            Id = @event.RestaurantId;
+            Name = @event.Name;
+            TownId = @event.TownId;
+            OwnerId = @event.OwnerId;
+        }
+
     }
 }
