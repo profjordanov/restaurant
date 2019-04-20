@@ -1,4 +1,5 @@
-﻿using Restaurant.Core.MealContext;
+﻿using Microsoft.EntityFrameworkCore;
+using Restaurant.Core.MealContext;
 using Restaurant.Domain.Entities;
 using Restaurant.Persistence.EntityFramework;
 using System.Threading.Tasks;
@@ -13,6 +14,12 @@ namespace Restaurant.Business.MealContext
         {
             _dbContext = dbContext;
         }
+
+        public Task<Meal> GetByIdAsync(string mealId) =>
+            _dbContext
+                .Meals
+                .AsNoTracking()
+                .SingleOrDefaultAsync(meal => meal.Id.ToString() == mealId);
 
         public async Task<Meal> SaveAsync(Meal meal)
         {

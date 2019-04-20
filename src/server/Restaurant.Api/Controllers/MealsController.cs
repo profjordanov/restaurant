@@ -1,16 +1,20 @@
 ﻿using System.Net;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Restaurant.Api.Controllers._Base;
 using Restaurant.Core.MealContext.Commands;
 using Restaurant.Core.MealContext.HttpRequests;
+using Restaurant.Core.OrderContext.Commands;
+using Restaurant.Core.OrderContext.HttpRequests;
 using Restaurant.Domain;
 using Restaurant.Domain.Entities;
 
 namespace Restaurant.Api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class MealsController : ApiController
@@ -45,6 +49,18 @@ namespace Restaurant.Api.Controllers
 
             return (await _mediator.Send(command))
                 .Match(r => CreatedAtAction(nameof(RegisterMeal), r), Error);
+        }
+
+        [HttpPost]
+        [Route("{id}/order")]
+        public async Task<IActionResult> MakeOrder([FromRoute] string id, [FromBody] MakeOrderRequest request)
+        {
+            var identityUser = await _userManager.GetUserAsync(HttpContext.User);
+
+            var command = new MakeNewOrder(id, request.Quantity, identityUser.Id);
+
+            return (await _mediator.Send(command))
+                .Match(Ok, Error);
         }
     }
 }

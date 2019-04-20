@@ -31,7 +31,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Restaurant.Business.MealTypeContext;
+using Restaurant.Business.OrderContext;
 using Restaurant.Core.MealTypeContext;
+using Restaurant.Core.OrderContext;
 using MappingProfile = Restaurant.Core.AuthContext.MappingProfile;
 
 namespace Restaurant.Api.Configuration
@@ -152,6 +154,7 @@ namespace Restaurant.Api.Configuration
             services.AddTransient<IRatingRepository, RatingRepository>();
             services.AddTransient<IMealRepository, MealRepository>();
             services.AddTransient<IMealTypeRepository, MealTypeRepository>();
+            services.AddTransient<IOrderRepository, OrderRepository>();
         }
 
         public static void AddMarten(this IServiceCollection services, IConfiguration configuration)
@@ -170,6 +173,7 @@ namespace Restaurant.Api.Configuration
                 options.Events.InlineProjections.AggregateStreamsWith<Domain.Entities.Restaurant>();
                 options.Events.InlineProjections.AggregateStreamsWith<Rating>();
                 options.Events.InlineProjections.AggregateStreamsWith<Meal>();
+                options.Events.InlineProjections.AggregateStreamsWith<Order>();
 
                 //options.Events.InlineProjections.Add(new TabViewProjection());
 

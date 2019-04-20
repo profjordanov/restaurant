@@ -52,7 +52,7 @@
         <member name="M:Restaurant.Api.Controllers.RestaurantsController.RegisterRestaurant(Restaurant.Core.RestaurantContext.HttpRequests.RegisterRestaurantRequest)">
             POST: api/restaurants/register
             <summary>
-            Creates a new restaurant and publishes an event. 
+            Creates a new restaurant and publishes an `RegisterRestaurant` event. 
             </summary>
             <response code="201">If the request passes the validations.</response>
             <response code="400">If town with current ID does not exist.</response>
@@ -62,8 +62,8 @@
             POST: api/restaurants/{restaurantId}/rate
             <summary>
             Rates an existing restaurant.
-            A user may only give one rating per restaurant.
-            If he rates twice, the old rating must be overridden with the new value.
+            An user may only give one rating per restaurant.
+            If he rates twice, the old rating is overridden with the new value.
             Also publishes an `RestaurantRated` event.
             </summary>
             <param name="id">Restaurant ID.</param>
