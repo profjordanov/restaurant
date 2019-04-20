@@ -67,7 +67,7 @@ namespace Restaurant.Api.Controllers
         {
             var identityUser = await _userManager.GetUserAsync(HttpContext.User);
 
-            var command = new RateRestaurant(request.Stars, Guid.Parse(id), identityUser.Id);
+            var command = new RateRestaurant(request.Stars, id, identityUser.Id);
 
             return (await _mediator.Send(command))
                 .Match(Ok, Error);

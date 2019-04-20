@@ -22,8 +22,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Restaurant.Business.RatingContext;
 using Restaurant.Business.RestaurantContext;
 using Restaurant.Business.TownContext;
+using Restaurant.Core.RatingContext;
 using Restaurant.Core.RestaurantContext;
 using Restaurant.Core.TownContext;
 using MappingProfile = Restaurant.Core.AuthContext.MappingProfile;
@@ -143,7 +145,7 @@ namespace Restaurant.Api.Configuration
         {
             services.AddTransient<IRestaurantRepository, RestaurantRepository>();
             services.AddTransient<ITownRepository, TownRepository>();
-
+            services.AddTransient<IRatingRepository, RatingRepository>();
         }
 
         public static void AddMarten(this IServiceCollection services, IConfiguration configuration)

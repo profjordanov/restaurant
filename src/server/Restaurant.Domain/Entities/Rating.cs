@@ -30,5 +30,13 @@ namespace Restaurant.Domain.Entities
                 UserId = UserId,
                 Stars = Stars
             };
+
+        public void Apply(RestaurantRated @event)
+        {
+            Id = @event.RateId;
+            RestaurantId = @event.RestaurantId;
+            UserId = @event.UserId;
+            Stars = @event.Stars;
+        }
     }
 }

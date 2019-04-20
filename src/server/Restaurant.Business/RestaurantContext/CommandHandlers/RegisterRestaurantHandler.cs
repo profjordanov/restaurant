@@ -47,21 +47,21 @@ namespace Restaurant.Business.RestaurantContext.CommandHandlers
                 .GetByNameAndTownIdAsync(name, townId);
 
             return result
-                .SomeWhen(r => r == null, Error.Conflict($"Restaurant {name} already exists."))
+                .SomeWhen(r => r == null, Error.Conflict($"Restaurant `{name}` already exists."))
                 .Map(_ => new Domain.Entities.Restaurant());
         }
 
         private Task<Option<Town, Error>> TownWithCurrentIdShouldExist(string townId) =>
             _townRepository
                 .GetByIdAsync(townId)
-                .SomeNotNull(Error.Validation($"No town with id {townId} was found."));
+                .SomeNotNull(Error.Validation($"No town with ID {townId} was found."));
 
         private async Task<Option<Domain.Entities.Restaurant, Error>> PersistRestaurantAsync(RegisterRestaurant command)
         {
             try
             {
                 var entry = Mapper.Map<Domain.Entities.Restaurant>(command);
-                return (await RestaurantRepository.AddAsync(entry))
+                return (await RestaurantRepository.SaveAsync(entry))
                     .Some<Domain.Entities.Restaurant, Error>();
             }
             catch (Exception ex)

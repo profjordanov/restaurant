@@ -3,8 +3,8 @@ using FluentValidation;
 using Marten;
 using Restaurant.Business._Base;
 using Restaurant.Core._Base;
+using Restaurant.Core.RatingContext;
 using Restaurant.Domain.Events._Base;
-using Restaurant.Persistence.EntityFramework;
 
 namespace Restaurant.Business.RatingContext.CommandHandlers
 {
@@ -15,9 +15,13 @@ namespace Restaurant.Business.RatingContext.CommandHandlers
             IValidator<TCommand> validator,
             IDocumentSession documentSession,
             IEventBus eventBus, 
-            IMapper mapper) 
+            IMapper mapper, 
+            IRatingRepository ratingRepository) 
             : base(validator, documentSession, eventBus, mapper)
         {
+            RatingRepository = ratingRepository;
         }
+
+        protected IRatingRepository RatingRepository { get; }
     }
 }
