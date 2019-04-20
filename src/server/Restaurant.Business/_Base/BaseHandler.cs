@@ -44,7 +44,7 @@ namespace Restaurant.Business._Base
 
         public abstract Task<Option<Unit, Error>> Handle(TCommand command);
 
-        protected async Task<Unit> PublishEvents(Guid streamId, params IEvent[] events)
+        protected async Task<Unit> PublishEventsAsync(Guid streamId, params IEvent[] events)
         {
             Session.Events.Append(streamId, events);
             await Session.SaveChangesAsync();

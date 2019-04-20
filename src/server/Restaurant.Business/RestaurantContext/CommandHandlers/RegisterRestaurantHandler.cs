@@ -37,7 +37,7 @@ namespace Restaurant.Business.RestaurantContext.CommandHandlers
                 .FlatMapAsync(restaurant =>
             TownWithCurrentIdShouldExist(command.TownId)).FlatMapAsync(_ =>
             PersistRestaurantAsync(command)).MapAsync(restaurant =>
-            PublishEvents(restaurant.Id, restaurant.RegisterRestaurant()));
+            PublishEventsAsync(restaurant.Id, restaurant.RegisterRestaurant()));
 
         private async Task<Option<Domain.Entities.Restaurant, Error>> RestaurantWithCurrentNameAndTownShouldNotExist(
             string name,

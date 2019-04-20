@@ -1,6 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using AutoMapper;
+﻿using AutoMapper;
 using FluentValidation;
 using Marten;
 using MediatR;
@@ -12,7 +10,8 @@ using Restaurant.Core.RestaurantContext;
 using Restaurant.Domain;
 using Restaurant.Domain.Entities;
 using Restaurant.Domain.Events._Base;
-using Restaurant.Persistence.EntityFramework;
+using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace Restaurant.Business.RatingContext.CommandHandlers
@@ -37,7 +36,7 @@ namespace Restaurant.Business.RatingContext.CommandHandlers
             EnsureRestaurantExistsAsync(command.RestaurantId).FlatMapAsync(restaurant =>
             UserShouldNotRateOwnRestaurant(restaurant, command.UserId).FlatMapAsync(_ =>
             RateAsync(command).MapAsync(rating =>
-            PublishEvents(rating.Id, rating.RateRestaurant()))));
+            PublishEventsAsync(rating.Id, rating.RateRestaurant()))));
 
         private Task<Option<Domain.Entities.Restaurant, Error>> EnsureRestaurantExistsAsync(
             string restaurantId) =>
