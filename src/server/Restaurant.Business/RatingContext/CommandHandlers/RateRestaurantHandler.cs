@@ -36,17 +36,17 @@ namespace Restaurant.Business.RatingContext.CommandHandlers
 
         public override Task<Option<Unit, Error>> Handle(RateRestaurant command) =>
             EnsureRestaurantExistsAsync(command.RestaurantId).FlatMapAsync(restaurant =>
-                UserShouldNotRateOwnRestaurant(restaurant, command.UserId).FlatMapAsync(_ =>
-                    RateAsync(command).MapAsync(rating =>
-                        PublishEvents(rating.Id, rating.RateRestaurant()))));
+            UserShouldNotRateOwnRestaurant(restaurant, command.UserId).FlatMapAsync(_ =>
+            RateAsync(command).MapAsync(rating =>
+            PublishEvents(rating.Id, rating.RateRestaurant()))));
 
         private Task<Option<Domain.Entities.Restaurant, Error>> EnsureRestaurantExistsAsync(
             string restaurantId) =>
             _restaurantRepository
                 .GetByIdAsync(restaurantId)
-                .SomeNotNull(Error.Validation($"Restaurant with ID: {restaurantId} does not exists!"));
+                .SomeNotNull(Error.NotFound($"Restaurant with ID: {restaurantId} does not exists!"));
 
-        private Option<Domain.Entities.Restaurant, Error> UserShouldNotRateOwnRestaurant(
+        private static Option<Domain.Entities.Restaurant, Error> UserShouldNotRateOwnRestaurant(
             Domain.Entities.Restaurant restaurant,
             string userId) =>
             restaurant.NoneWhen(r =>
