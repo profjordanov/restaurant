@@ -24,10 +24,12 @@
         </member>
         <member name="M:Restaurant.Api.Controllers.MealsController.RegisterMeal(Restaurant.Core.MealContext.HttpRequests.RegisterMealRequest)">
             <summary>
-            
+            Creates a new meal and publishes an event.
             </summary>
-            <param name="request"></param>
-            <returns></returns>
+            <response code="201">If the request passes the validations.</response>
+            <response code="400">If meal type does not exist.</response>
+            <response code="401">If current user is not the restaurant owner.</response>
+            <response code="404">If restaurant with current ID does not exist.</response>
         </member>
         <member name="M:Restaurant.Api.Controllers.OptionController.Get(Restaurant.Api.Controllers.OptionController.ParametersDemo)">
             <summary>
