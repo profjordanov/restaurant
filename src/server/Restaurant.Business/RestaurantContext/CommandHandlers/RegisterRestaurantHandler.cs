@@ -4,29 +4,32 @@ using Marten;
 using MediatR;
 using Optional;
 using Optional.Async;
+using Restaurant.Core.RestaurantContext;
 using Restaurant.Core.RestaurantContext.Commands;
+using Restaurant.Core.TownContext;
 using Restaurant.Domain;
 using Restaurant.Domain.Entities;
 using Restaurant.Domain.Events._Base;
-using Restaurant.Persistence.EntityFramework;
 using System;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
-using IDocumentSession = Marten.IDocumentSession;
 
 namespace Restaurant.Business.RestaurantContext.CommandHandlers
 {
     public class RegisterRestaurantHandler : BaseRestaurantHandler<RegisterRestaurant>
     {
+        private readonly ITownRepository _townRepository;
+
         public RegisterRestaurantHandler(
             IValidator<RegisterRestaurant> validator,
-            ApplicationDbContext dbContext,
             IDocumentSession documentSession,
             IEventBus eventBus,
-            IMapper mapper)
-            : base(validator, dbContext, documentSession, eventBus, mapper)
+            IMapper mapper,
+            IRestaurantRepository restaurantRepository,
+            ITownRepository townRepository)
+            : base(validator, documentSession, eventBus, mapper, restaurantRepository)
         {
+            _townRepository = townRepository;
         }
 
         public override Task<Option<Unit, Error>> Handle(RegisterRestaurant command) =>
@@ -36,19 +39,21 @@ namespace Restaurant.Business.RestaurantContext.CommandHandlers
                     PersistRestaurantAsync(command)).MapAsync(restaurant =>
                     PublishEvents(restaurant.Id, restaurant.RegisterRestaurant()));
 
-        private Task<Option<Domain.Entities.Restaurant, Error>> RestaurantWithCurrentNameAndTownShouldNotExist(
+        private async Task<Option<Domain.Entities.Restaurant, Error>> RestaurantWithCurrentNameAndTownShouldNotExist(
             string name,
-            string townId) =>
-            DbContext
-                .Restaurants
-                .SingleOrDefault(restaurant => restaurant.Name == name &&
-                                                   restaurant.TownId.ToString() == townId)
-                .SomeWhenAsync(async restaurant => restaurant == null, Error.Conflict($"Restaurant {name} already exists."))
-                .MapAsync(async _ => new Domain.Entities.Restaurant());
+            string townId) 
+        {
+            var result = await RestaurantRepository
+                .GetByNameAndTownIdAsync(name, townId);
+
+            return result
+                .SomeWhen(r => r == null, Error.Conflict($"Restaurant {name} already exists."))
+                .Map(_ => new Domain.Entities.Restaurant());
+        }
 
         private Task<Option<Town, Error>> TownWithCurrentIdShouldExist(string townId) =>
-            DbContext
-                .FindAsync<Town>(Guid.Parse(townId))
+            _townRepository
+                .GetByIdAsync(townId)
                 .SomeNotNull(Error.Validation($"No town with id {townId} was found."));
 
         private async Task<Option<Domain.Entities.Restaurant, Error>> PersistRestaurantAsync(RegisterRestaurant command)
@@ -56,9 +61,8 @@ namespace Restaurant.Business.RestaurantContext.CommandHandlers
             try
             {
                 var entry = Mapper.Map<Domain.Entities.Restaurant>(command);
-                await DbContext.Restaurants.AddAsync(entry);
-                await DbContext.SaveChangesAsync();
-                return entry.Some<Domain.Entities.Restaurant, Error>();
+                return (await RestaurantRepository.AddAsync(entry))
+                    .Some<Domain.Entities.Restaurant, Error>();
             }
             catch (Exception ex)
             {

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Marten;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -6,9 +7,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Restaurant.Api.Events;
 using Restaurant.Api.OperationFilters;
+using Restaurant.Business.AuthContext;
 using Restaurant.Core.AuthContext;
+using Restaurant.Core.AuthContext.Configuration;
 using Restaurant.Domain.Entities;
+using Restaurant.Domain.Events._Base;
+using Restaurant.Domain.Events.Restaurant;
 using Restaurant.Persistence.EntityFramework;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
@@ -16,12 +22,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Marten;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Restaurant.Api.Events;
-using Restaurant.Business.AuthContext;
-using Restaurant.Core.AuthContext.Configuration;
-using Restaurant.Domain.Events._Base;
+using Restaurant.Business.RestaurantContext;
+using Restaurant.Business.TownContext;
+using Restaurant.Core.RestaurantContext;
+using Restaurant.Core.TownContext;
+using MappingProfile = Restaurant.Core.AuthContext.MappingProfile;
 
 namespace Restaurant.Api.Configuration
 {
@@ -134,6 +139,13 @@ namespace Restaurant.Api.Configuration
 
         }
 
+        public static void AddRepositories(this IServiceCollection services)
+        {
+            services.AddTransient<IRestaurantRepository, RestaurantRepository>();
+            services.AddTransient<ITownRepository, TownRepository>();
+
+        }
+
         public static void AddMarten(this IServiceCollection services, IConfiguration configuration)
         {
             var documentStore = DocumentStore.For(options =>
@@ -147,16 +159,18 @@ namespace Restaurant.Api.Configuration
                 options.Events.DatabaseSchemaName = schemaName;
                 options.DatabaseSchemaName = schemaName;
 
-                //options.Events.InlineProjections.AggregateStreamsWith<Tab>();
+                options.Events.InlineProjections.AggregateStreamsWith<Domain.Entities.Restaurant>();
+                options.Events.InlineProjections.AggregateStreamsWith<Rating>();
+
                 //options.Events.InlineProjections.Add(new TabViewProjection());
 
-                //var events = typeof(TabOpened)
-                //  .Assembly
-                //  .GetTypes()
-                //  .Where(t => typeof(IEvent).IsAssignableFrom(t))
-                //  .ToList();
+                var events = typeof(RestaurantRegistered)
+                  .Assembly
+                  .GetTypes()
+                  .Where(t => typeof(IEvent).IsAssignableFrom(t))
+                  .ToList();
 
-                //options.Events.AddEventTypes(events);
+                options.Events.AddEventTypes(events);
             });
 
             services.AddSingleton<IDocumentStore>(documentStore);

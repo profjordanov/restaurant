@@ -31,6 +31,7 @@ namespace Restaurant.Api.Controllers
             _userManager = userManager;
         }
 
+        /// POST: api/restaurants/register
         /// <summary>
         /// Creates a new restaurant and publishes an events. 
         /// </summary>
@@ -51,6 +52,13 @@ namespace Restaurant.Api.Controllers
                 .Match(Ok, Error);
         }
 
+        /// POST: api/restaurants/{restaurantId}/rate
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("{id}/rate")]
         public async Task<IActionResult> RateRestaurant(

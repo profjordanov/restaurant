@@ -1,5 +1,5 @@
-﻿using System;
-using Restaurant.Domain.Events._Base;
+﻿using Restaurant.Domain.Events._Base;
+using System;
 
 namespace Restaurant.Domain.Events.Restaurant
 {

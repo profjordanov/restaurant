@@ -21,6 +21,7 @@ namespace Restaurant.Business.AuthContext.CommandHandlers
     public abstract class BaseAuthHandler<TCommand> : BaseHandler<TCommand>
         where TCommand : ICommand
     {
+        protected ApplicationDbContext DbContext { get; }
         protected UserManager<User> UserManager { get; }
         protected IJwtFactory JwtFactory { get; }
 
@@ -32,8 +33,9 @@ namespace Restaurant.Business.AuthContext.CommandHandlers
             IMapper mapper,
             UserManager<User> userManager,
             IJwtFactory jwtFactory) 
-            : base(validator, dbContext, documentSession, eventBus, mapper)
+            : base(validator, documentSession, eventBus, mapper)
         {
+            DbContext = dbContext;
             UserManager = userManager;
             JwtFactory = jwtFactory;
         }
