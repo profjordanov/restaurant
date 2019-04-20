@@ -35,9 +35,9 @@ namespace Restaurant.Business.RestaurantContext.CommandHandlers
         public override Task<Option<Unit, Error>> Handle(RegisterRestaurant command) =>
             RestaurantWithCurrentNameAndTownShouldNotExist(command.Name, command.TownId)
                 .FlatMapAsync(restaurant =>
-                    TownWithCurrentIdShouldExist(command.TownId)).FlatMapAsync(_ =>
-                    PersistRestaurantAsync(command)).MapAsync(restaurant =>
-                    PublishEvents(restaurant.Id, restaurant.RegisterRestaurant()));
+            TownWithCurrentIdShouldExist(command.TownId)).FlatMapAsync(_ =>
+            PersistRestaurantAsync(command)).MapAsync(restaurant =>
+            PublishEvents(restaurant.Id, restaurant.RegisterRestaurant()));
 
         private async Task<Option<Domain.Entities.Restaurant, Error>> RestaurantWithCurrentNameAndTownShouldNotExist(
             string name,
@@ -66,7 +66,7 @@ namespace Restaurant.Business.RestaurantContext.CommandHandlers
             }
             catch (Exception ex)
             {
-                Debug.Fail($"Entity Framework Exception: {ex.Message} .");
+                Debug.Fail($"An exception occurred: {ex.Message}.\nInnerException:{ex.InnerException}");
                 return Option.None<Domain.Entities.Restaurant, Error>(
                     Error.Critical("Un error occured while persisting the restaurant data to tha base!"));
             }
