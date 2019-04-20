@@ -38,5 +38,15 @@ namespace Restaurant.Domain.Entities
                 RestaurantId = restaurantId,
                 MealTypeId = mealTypeId
             };
+
+        public void Apply(OrderMade @event)
+        {
+            Id = @event.OrderId;
+            CreatedOn = @event.CreatedOn;
+            MealId = @event.MealId;
+            UserId = @event.UserId;
+            Quantity = @event.Quantity;
+            OrderStatus = @event.OrderStatus;
+        }
     }
 }

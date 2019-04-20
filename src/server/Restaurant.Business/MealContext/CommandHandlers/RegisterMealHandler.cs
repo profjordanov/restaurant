@@ -36,7 +36,7 @@ namespace Restaurant.Business.MealContext.CommandHandlers
             RestaurantOwnerShouldRegisterMeal(restaurant, command.UserId).FlatMapAsync(_ =>
             ValidateMealTypeAsync(command.TypeId).FlatMapAsync(__ =>
             PersistMealAsync(command).MapAsync(meal =>
-            PublishEventsAsync(meal.Id, meal.RegisterMeal)))));
+            PublishEventsAsync(meal.Id, meal.RegisterMeal())))));
 
         private Task<Option<Domain.Entities.Restaurant, Error>> EnsureRestaurantExistsAsync(
             string restaurantId) =>

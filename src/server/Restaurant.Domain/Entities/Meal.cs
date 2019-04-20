@@ -28,7 +28,7 @@ namespace Restaurant.Domain.Entities
         public virtual ICollection<Order> Orders { get; set; } = new HashSet<Order>();
 
         // Events
-        public MealRegistered RegisterMeal =>
+        public MealRegistered RegisterMeal() =>
             new MealRegistered
             {
                 MealId = Id,
