@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using System;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +10,8 @@ using Restaurant.Domain;
 using Restaurant.Domain.Entities;
 using System.Net;
 using System.Threading.Tasks;
+using Restaurant.Core.RatingContext.Commands;
+using Restaurant.Core.RatingContext.HttpRequests;
 
 namespace Restaurant.Api.Controllers
 {
@@ -43,6 +46,20 @@ namespace Restaurant.Api.Controllers
             var identityUser = await _userManager.GetUserAsync(HttpContext.User);
 
             var command = new RegisterRestaurant(request.Name, request.TownId, identityUser.Id);
+
+            return (await _mediator.Send(command))
+                .Match(Ok, Error);
+        }
+
+        [HttpPost]
+        [Route("{id}/rate")]
+        public async Task<IActionResult> RateRestaurant(
+            [FromRoute] string id,
+            [FromBody] RateRestaurantRequest request)
+        {
+            var identityUser = await _userManager.GetUserAsync(HttpContext.User);
+
+            var command = new RateRestaurant(request.Stars, Guid.Parse(id), identityUser.Id);
 
             return (await _mediator.Send(command))
                 .Match(Ok, Error);
