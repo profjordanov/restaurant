@@ -1,11 +1,10 @@
 ﻿using AutoMapper;
 using FluentValidation;
 using Marten;
-using Microsoft.AspNetCore.Http;
 using Restaurant.Business._Base;
 using Restaurant.Core._Base;
+using Restaurant.Core.RestaurantContext;
 using Restaurant.Domain.Events._Base;
-using Restaurant.Persistence.EntityFramework;
 
 namespace Restaurant.Business.RestaurantContext.CommandHandlers
 {
@@ -13,13 +12,16 @@ namespace Restaurant.Business.RestaurantContext.CommandHandlers
         where TCommand : ICommand
     {
         protected BaseRestaurantHandler(
-            IValidator<TCommand> validator, 
-            ApplicationDbContext dbContext, 
+            IValidator<TCommand> validator,  
             IDocumentSession documentSession,
             IEventBus eventBus,
-            IMapper mapper) 
-            : base(validator, dbContext, documentSession, eventBus, mapper)
+            IMapper mapper, 
+            IRestaurantRepository restaurantRepository) 
+            : base(validator, documentSession, eventBus, mapper)
         {
+            RestaurantRepository = restaurantRepository;
         }
+
+        protected IRestaurantRepository RestaurantRepository { get; }
     }
 }

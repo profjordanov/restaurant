@@ -37,6 +37,8 @@ namespace Restaurant.Api
         {
             services.AddDbContext(Configuration.GetConnectionString("DefaultConnection"));
 
+            services.AddRepositories();
+
             services.AddMapper();
 
             services.AddSwagger();

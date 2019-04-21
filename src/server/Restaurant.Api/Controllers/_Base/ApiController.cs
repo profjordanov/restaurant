@@ -18,7 +18,7 @@ namespace Restaurant.Api.Controllers._Base
 
         protected IActionResult Error(Error error)
         {
-            switch(error.Type)
+            switch (error.Type)
             {
                 case ErrorType.Validation:
                     return BadRequest(error);

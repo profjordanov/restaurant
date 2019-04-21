@@ -7,7 +7,6 @@ using Optional.Async;
 using Restaurant.Core._Base;
 using Restaurant.Domain;
 using Restaurant.Domain.Events._Base;
-using Restaurant.Persistence.EntityFramework;
 using System;
 using System.Linq;
 using System.Threading;
@@ -20,7 +19,6 @@ namespace Restaurant.Business._Base
     {
         protected BaseHandler(
             IValidator<TCommand> validator,
-            ApplicationDbContext dbContext,
             IDocumentSession documentSession,
             IEventBus eventBus,
             IMapper mapper)
@@ -30,13 +28,11 @@ namespace Restaurant.Business._Base
                     "Tried to instantiate a command handler without a validator." +
                     "Did you forget to add one?");
 
-            DbContext = dbContext;
             Session = documentSession;
             EventBus = eventBus;
             Mapper = mapper;
         }
 
-        protected ApplicationDbContext DbContext { get; }
         protected IEventBus EventBus { get; }
         protected IMapper Mapper { get; }
         protected IDocumentSession Session { get; }
@@ -48,7 +44,7 @@ namespace Restaurant.Business._Base
 
         public abstract Task<Option<Unit, Error>> Handle(TCommand command);
 
-        protected async Task<Unit> PublishEvents(Guid streamId, params IEvent[] events)
+        protected async Task<Unit> PublishEventsAsync(Guid streamId, params IEvent[] events)
         {
             Session.Events.Append(streamId, events);
             await Session.SaveChangesAsync();
