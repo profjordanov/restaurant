@@ -51,6 +51,12 @@ namespace Restaurant.Api.Controllers
                 .Match(r => CreatedAtAction(nameof(RegisterMeal), r), Error);
         }
 
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("{id}/order")]
         public async Task<IActionResult> MakeOrder([FromRoute] string id, [FromBody] MakeOrderRequest request)
