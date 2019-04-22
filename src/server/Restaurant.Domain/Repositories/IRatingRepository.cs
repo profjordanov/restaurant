@@ -1,7 +1,7 @@
 ﻿using Restaurant.Domain.Entities;
 using System.Threading.Tasks;
 
-namespace Restaurant.Core.RatingContext
+namespace Restaurant.Domain.Repositories
 {
     public interface IRatingRepository
     {

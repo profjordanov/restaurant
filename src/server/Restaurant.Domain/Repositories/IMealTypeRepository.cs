@@ -1,7 +1,7 @@
 ﻿using Restaurant.Domain.Entities;
 using System.Threading.Tasks;
 
-namespace Restaurant.Core.MealTypeContext
+namespace Restaurant.Domain.Repositories
 {
     public interface IMealTypeRepository
     {

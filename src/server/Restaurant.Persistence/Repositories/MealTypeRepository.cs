@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Restaurant.Core.MealTypeContext;
 using Restaurant.Domain.Entities;
+using Restaurant.Domain.Repositories;
 using Restaurant.Persistence.EntityFramework;
 using System.Threading.Tasks;
 
-namespace Restaurant.Business.MealTypeContext
+namespace Restaurant.Persistence.Repositories
 {
     public class MealTypeRepository : IMealTypeRepository
     {

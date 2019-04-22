@@ -3,10 +3,8 @@ using FluentValidation;
 using Marten;
 using Restaurant.Business._Base;
 using Restaurant.Core._Base;
-using Restaurant.Core.MealContext;
-using Restaurant.Core.MealTypeContext;
-using Restaurant.Core.RestaurantContext;
 using Restaurant.Domain.Events._Base;
+using Restaurant.Domain.Repositories;
 
 namespace Restaurant.Business.MealContext.CommandHandlers
 {
