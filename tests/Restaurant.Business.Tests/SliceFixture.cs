@@ -66,7 +66,6 @@ namespace Restaurant.Business.Tests
                     return action(dbContext);
                 });
 
-
         public Task<T> ExecuteDbContextAsync<T>(Func<ApplicationDbContext, Task<T>> action) =>
             ExecuteScopeAsync(sp =>
             {
