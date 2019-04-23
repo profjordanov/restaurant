@@ -2,7 +2,7 @@
 using Moq;
 using Restaurant.Domain.Entities;
 
-namespace Restaurant.Business.Tests
+namespace Restaurant.Business.Tests.Customizations
 {
     public static class IdentityMocksProvider
     {

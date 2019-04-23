@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Restaurant.Persistence.EntityFramework;
 
-namespace Restaurant.Business.Tests
+namespace Restaurant.Business.Tests.Customizations
 {
     public static class DbContextProvider
     {
