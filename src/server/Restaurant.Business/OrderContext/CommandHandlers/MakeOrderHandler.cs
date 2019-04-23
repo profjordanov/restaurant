@@ -1,17 +1,16 @@
-﻿using System;
-using System.Diagnostics;
-using AutoMapper;
+﻿using AutoMapper;
 using FluentValidation;
 using Marten;
 using MediatR;
 using Optional;
 using Optional.Async;
-using Restaurant.Core.MealContext;
-using Restaurant.Core.OrderContext;
 using Restaurant.Core.OrderContext.Commands;
 using Restaurant.Domain;
 using Restaurant.Domain.Entities;
 using Restaurant.Domain.Events._Base;
+using Restaurant.Domain.Repositories;
+using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace Restaurant.Business.OrderContext.CommandHandlers

@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Restaurant.Core.RestaurantContext;
+using Restaurant.Domain.Repositories;
 using Restaurant.Persistence.EntityFramework;
 using System.Threading.Tasks;
 
-namespace Restaurant.Business.RestaurantContext
+namespace Restaurant.Persistence.Repositories
 {
     public class RestaurantRepository : IRestaurantRepository
     {

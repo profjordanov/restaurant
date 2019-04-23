@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Restaurant.Core.RestaurantContext
+namespace Restaurant.Domain.Repositories
 {
     public interface IRestaurantRepository
     {
