@@ -24,8 +24,4 @@
     <ProjectReference Include="..\Restaurant.Persistence\Restaurant.Persistence.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="RestaurantContext\QueryHandlers\" />
-  </ItemGroup>
-
 </Project>
