@@ -1,14 +1,17 @@
-﻿using System.Net;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Restaurant.Api.Controllers._Base;
 using Restaurant.Core.AuthContext.Commands;
 using Restaurant.Domain;
 using Restaurant.Domain.Views.Auth;
+using System.Net;
+using System.Threading.Tasks;
+using Restaurant.Core.AuthContext.Queries;
 
 namespace Restaurant.Api.Controllers
 {
+	[AllowAnonymous]
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ApiController
@@ -20,14 +23,19 @@ namespace Restaurant.Api.Controllers
             _mediator = mediator;
         }
 
-        /// <summary>
-        /// Login.
-        /// </summary>
-        /// <param name="command">The credentials.</param>
-        /// <returns>A JWT.</returns>
-        /// <response code="200">If the credentials have a match.</response>
-        /// <response code="400">If the credentials don't match/don't meet the requirements.</response>
-        [HttpPost("login")]
+        [HttpGet]
+        public async Task<IActionResult> AllUserAccounts() =>
+	        (await _mediator.Send(new GetAllUserAccounts()))
+	        .Match(Ok, Error);
+
+		/// <summary>
+		/// Login.
+		/// </summary>
+		/// <param name="command">The credentials.</param>
+		/// <returns>A JWT.</returns>
+		/// <response code="200">If the credentials have a match.</response>
+		/// <response code="400">If the credentials don't match/don't meet the requirements.</response>
+		[ HttpPost("login")]
         [ProducesResponseType(typeof(JwtView), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(Error), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> Login([FromBody] Login command) =>

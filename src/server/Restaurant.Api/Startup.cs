@@ -13,6 +13,7 @@ using Restaurant.Api.ModelBinders;
 using Restaurant.Core.AuthContext.Commands;
 using Restaurant.Core.AuthContext.Configuration;
 using Restaurant.Domain.Entities;
+using Restaurant.Persistence.Connectors;
 using Restaurant.Persistence.EntityFramework;
 using Serilog;
 
@@ -42,6 +43,8 @@ namespace Restaurant.Api
         {
             services.AddDbContext(Configuration.GetConnectionString("DefaultConnection"));
 
+            services.AddDbConnectors();
+
             services.AddRepositories();
 
             services.AddMapper();
@@ -66,6 +69,8 @@ namespace Restaurant.Api
             })
             .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<RegisterValidator>())
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            ConnectionManagerBase.SetConnectionString(Configuration.GetConnectionString("DefaultConnection"));
         }
 
         public void Configure(
