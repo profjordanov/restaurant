@@ -4,6 +4,12 @@
         <name>Restaurant.Api</name>
     </assembly>
     <members>
+        <member name="M:Restaurant.Api.Controllers.AuthController.AllUserAccounts">
+            <summary>
+            Fetches all user accounts.
+            </summary>
+            <returns>Collection of <see cref="T:Restaurant.Domain.Views.Auth.UserView"/></returns>
+        </member>
         <member name="M:Restaurant.Api.Controllers.AuthController.Login(Restaurant.Core.AuthContext.Commands.Login)">
             <summary>
             Login.
