@@ -10,7 +10,7 @@ namespace Restaurant.Domain.Views.Restaurant
 
         public string Name { get; set; }
 
-        public double AverageRating { get; set; }
+        public decimal AverageRating { get; set; }
 
         public Guid TownId { get; set; }
     }

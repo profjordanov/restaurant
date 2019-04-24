@@ -7,6 +7,7 @@ using Restaurant.Domain.Connectors;
 using Restaurant.Domain.SQL;
 using Restaurant.Domain.Views.Restaurant;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -34,5 +35,14 @@ namespace Restaurant.Business.RestaurantContext.QueryHandlers
 
             return result.Some<IList<RestaurantWithAvrgRatingView>, Error>();
         }
+
+        private static RestaurantWithAvrgRatingView ParseReaderResult(DbDataReader reader) =>
+            new RestaurantWithAvrgRatingView
+            {
+                Id = reader.SafeGetGuid("Id"),
+                Name = reader["Name"].ToString(),
+                AverageRating = CustomParser.ParseDecimal(reader["AverageRating"]),
+                TownId = reader.SafeGetGuid("TownId")
+            };
     }
 }

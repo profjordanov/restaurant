@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Data;
 using System.Data.Common;
+using System.Linq;
 
 namespace Restaurant.Business.Extensions
 {
@@ -12,7 +13,9 @@ namespace Restaurant.Business.Extensions
         /// </summary>
         public static T Fill<T>(this DbDataReader reader, T obj)
         {
-            foreach (PropertyDescriptor prop in TypeDescriptor.GetProperties(obj))
+	        var columns = Enumerable.Range(0, reader.FieldCount).Select(reader.GetName).ToList();
+
+			foreach (PropertyDescriptor prop in TypeDescriptor.GetProperties(obj))
             {
                 if (prop.IsReadOnly)
                     continue;
