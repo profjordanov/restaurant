@@ -7,6 +7,7 @@ using Restaurant.Core.RatingContext.Commands;
 using Restaurant.Core.RatingContext.HttpRequests;
 using Restaurant.Core.RestaurantContext.Commands;
 using Restaurant.Core.RestaurantContext.HttpRequests;
+using Restaurant.Core.RestaurantContext.Queries;
 using Restaurant.Domain;
 using Restaurant.Domain.Entities;
 using System.Net;
@@ -22,13 +23,19 @@ namespace Restaurant.Api.Controllers
         private readonly IMediator _mediator;
         private readonly UserManager<User> _userManager;
 
-        public RestaurantsController(
+        public RestaurantsController( 
             IMediator mediator,
             UserManager<User> userManager)
         {
             _mediator = mediator;
             _userManager = userManager;
         }
+
+        [AllowAnonymous]
+		[HttpGet]
+        public async Task<IActionResult> GetRestaurants([FromQuery] GetAllRestaurantsByTown query) =>
+            (await _mediator.Send(query))
+            .Match(Ok, Error);
 
         /// POST: api/restaurants/register
         /// <summary>

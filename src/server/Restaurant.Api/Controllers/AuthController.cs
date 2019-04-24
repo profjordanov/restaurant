@@ -1,14 +1,18 @@
-﻿using System.Net;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Restaurant.Api.Controllers._Base;
 using Restaurant.Core.AuthContext.Commands;
+using Restaurant.Core.AuthContext.Queries;
 using Restaurant.Domain;
 using Restaurant.Domain.Views.Auth;
+using System.Collections.Generic;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace Restaurant.Api.Controllers
 {
+    [AllowAnonymous]
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ApiController
@@ -19,6 +23,16 @@ namespace Restaurant.Api.Controllers
         {
             _mediator = mediator;
         }
+
+        /// <summary>
+        /// Fetches all user accounts.
+        /// </summary>
+        /// <returns>Collection of <see cref="UserView"/></returns>
+        [HttpGet("user-accounts")]
+        [ProducesResponseType(typeof(IList<UserView>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> AllUserAccounts() =>
+            (await _mediator.Send(new GetAllUserAccounts()))
+            .Match(Ok, Error);
 
         /// <summary>
         /// Login.

@@ -12,10 +12,12 @@ using Restaurant.Api.OperationFilters;
 using Restaurant.Business.AuthContext;
 using Restaurant.Core.AuthContext;
 using Restaurant.Core.AuthContext.Configuration;
+using Restaurant.Domain.Connectors;
 using Restaurant.Domain.Entities;
 using Restaurant.Domain.Events._Base;
 using Restaurant.Domain.Events.Restaurant;
 using Restaurant.Domain.Repositories;
+using Restaurant.Persistence.Connectors;
 using Restaurant.Persistence.EntityFramework;
 using Restaurant.Persistence.Repositories;
 using Swashbuckle.AspNetCore.Swagger;
@@ -40,6 +42,11 @@ namespace Restaurant.Api.Configuration
             services.AddDbContext<ApplicationDbContext>(opts =>
                 opts.UseNpgsql(connectionString)
                     .EnableSensitiveDataLogging());
+        }
+
+        public static void AddDbConnectors(this IServiceCollection serviceCollection)
+        {
+            serviceCollection.AddScoped<IQueryDbConnector, QueryDbConnector>();
         }
 
         public static void AddJwtIdentity(this IServiceCollection services, IConfigurationSection jwtConfiguration)
