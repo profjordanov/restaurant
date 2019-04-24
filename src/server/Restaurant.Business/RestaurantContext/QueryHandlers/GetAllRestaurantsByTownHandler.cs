@@ -25,7 +25,7 @@ namespace Restaurant.Business.RestaurantContext.QueryHandlers
         {
             var result = await _queryDbConnector.FetchAsync<List<RestaurantWithAvrgRatingView>>(
                 sql: RestaurantQueryRepository.RestaurantsByTownQuery,
-                mapping: (reader, restaurants) => reader.Get<RestaurantWithAvrgRatingView>(),
+                mapping: (reader, restaurants) => restaurants.Add(reader.Get<RestaurantWithAvrgRatingView>()),
                 parameters: new Dictionary<string, object>
                 {
                     { "@TownID", request.TownId }
