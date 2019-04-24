@@ -1,4 +1,5 @@
-﻿using Optional;
+﻿using System;
+using Optional;
 using Restaurant.Business.Extensions;
 using Restaurant.Core._Base;
 using Restaurant.Core.RestaurantContext.Queries;
@@ -36,6 +37,7 @@ namespace Restaurant.Business.RestaurantContext.QueryHandlers
             return result.Some<IList<RestaurantWithAvrgRatingView>, Error>();
         }
 
+        [Obsolete]
         private static RestaurantWithAvrgRatingView ParseReaderResult(DbDataReader reader) =>
             new RestaurantWithAvrgRatingView
             {
