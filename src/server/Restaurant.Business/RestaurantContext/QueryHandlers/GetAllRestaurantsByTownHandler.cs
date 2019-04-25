@@ -1,4 +1,5 @@
-﻿using Optional;
+﻿using System;
+using Optional;
 using Restaurant.Business.Extensions;
 using Restaurant.Core._Base;
 using Restaurant.Core.RestaurantContext.Queries;
@@ -7,6 +8,7 @@ using Restaurant.Domain.Connectors;
 using Restaurant.Domain.SQL;
 using Restaurant.Domain.Views.Restaurant;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -25,7 +27,7 @@ namespace Restaurant.Business.RestaurantContext.QueryHandlers
         {
             var result = await _queryDbConnector.FetchAsync<List<RestaurantWithAvrgRatingView>>(
                 sql: RestaurantQueryRepository.RestaurantsByTownQuery,
-                mapping: (reader, restaurants) => reader.Get<RestaurantWithAvrgRatingView>(),
+                mapping: (reader, restaurants) => restaurants.Add(reader.Get<RestaurantWithAvrgRatingView>()),
                 parameters: new Dictionary<string, object>
                 {
                     { "@TownID", request.TownId }
@@ -34,5 +36,15 @@ namespace Restaurant.Business.RestaurantContext.QueryHandlers
 
             return result.Some<IList<RestaurantWithAvrgRatingView>, Error>();
         }
+
+        [Obsolete]
+        private static RestaurantWithAvrgRatingView ParseReaderResult(DbDataReader reader) =>
+            new RestaurantWithAvrgRatingView
+            {
+                Id = reader.SafeGetGuid("Id"),
+                Name = reader["Name"].ToString(),
+                AverageRating = CustomParser.ParseDecimal(reader["AverageRating"]),
+                TownId = reader.SafeGetGuid("TownId")
+            };
     }
 }
