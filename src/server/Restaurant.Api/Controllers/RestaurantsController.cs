@@ -10,6 +10,8 @@ using Restaurant.Core.RestaurantContext.HttpRequests;
 using Restaurant.Core.RestaurantContext.Queries;
 using Restaurant.Domain;
 using Restaurant.Domain.Entities;
+using Restaurant.Domain.Views.Restaurant;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -31,11 +33,16 @@ namespace Restaurant.Api.Controllers
             _userManager = userManager;
         }
 
+        /// <summary>
+        /// Returns all restaurants by town id, ordered by rating.
+        /// </summary>
+        /// <param name="query">Town ID GUID.</param>
+        /// <returns>ID, name, average rating and town.</returns>
         [AllowAnonymous]
-		[HttpGet]
-        public async Task<IActionResult> GetRestaurants([FromQuery] GetAllRestaurantsByTown query) =>
-            (await _mediator.Send(query))
-            .Match(Ok, Error);
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<RestaurantWithAvrgRatingView>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetRestaurantsByTown([FromQuery] GetAllRestaurantsByTown query) =>
+            (await _mediator.Send(query)).Match(Ok, Error);
 
         /// POST: api/restaurants/register
         /// <summary>
