@@ -14,7 +14,8 @@ using System.Threading.Tasks;
 
 namespace Restaurant.Business.RestaurantContext.QueryHandlers
 {
-    public class GetAllRestaurantsByTownHandler : IQueryHandler<GetAllRestaurantsByTown, IList<RestaurantWithAvrgRatingView>>
+    public class GetAllRestaurantsByTownHandler 
+        : IQueryHandler<GetAllRestaurantsByTown, IList<RestaurantWithAvrgRatingView>>
     {
         private readonly IQueryDbConnector _queryDbConnector;
 
