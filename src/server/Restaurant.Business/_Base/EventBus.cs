@@ -2,7 +2,7 @@
 using Restaurant.Domain.Events._Base;
 using System.Threading.Tasks;
 
-namespace Restaurant.Api.Events
+namespace Restaurant.Business._Base
 {
     public class EventBus : IEventBus
     {
