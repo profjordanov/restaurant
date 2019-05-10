@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using Restaurant.Domain._Base;
 
 namespace Restaurant.Domain.Entities
 {
-    public class User : IdentityUser<string>
+    public class User : IdentityUser<Guid>, IAggregate
     {
         public string FirstName { get; set; }
 

@@ -1,11 +1,12 @@
-﻿using Restaurant.Domain.Entities;
+﻿using System;
+using Restaurant.Domain.Entities;
 using System.Threading.Tasks;
 
 namespace Restaurant.Domain.Repositories
 {
     public interface IRatingRepository
     {
-        Task<Rating> GetByUserIdAndRestaurantIdAsync(string userId, string restaurantId);
+        Task<Rating> GetByUserIdAndRestaurantIdAsync(Guid userId, string restaurantId);
 
         Task<Rating> UpdateAsync(Rating rating);
 

@@ -9,7 +9,7 @@ namespace Restaurant.Domain.Events.Rating
 
         public Guid RestaurantId { get; set; }
 
-        public string UserId { get; set; }
+        public Guid UserId { get; set; }
 
         public int Stars { get; set; }
     }

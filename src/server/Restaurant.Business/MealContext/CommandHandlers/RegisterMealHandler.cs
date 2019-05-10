@@ -44,7 +44,7 @@ namespace Restaurant.Business.MealContext.CommandHandlers
 
         private static Option<Domain.Entities.Restaurant, Error> RestaurantOwnerShouldRegisterMeal(
             Domain.Entities.Restaurant restaurant,
-            string userId) =>
+            Guid userId) =>
             restaurant.NoneWhen(r => r.OwnerId != userId, Error.Unauthorized("Current user is not the restaurant owner!"));
 
         private Task<Option<MealType, Error>> ValidateMealTypeAsync(string typeId) =>

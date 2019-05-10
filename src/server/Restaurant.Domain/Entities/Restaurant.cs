@@ -14,7 +14,7 @@ namespace Restaurant.Domain.Entities
 
         public Guid TownId { get; set; }
 
-        public string OwnerId { get; set; }
+        public Guid OwnerId { get; set; }
 
         // Relations
         public virtual User Owner { get; set; }

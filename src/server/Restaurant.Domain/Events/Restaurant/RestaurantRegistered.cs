@@ -11,7 +11,7 @@ namespace Restaurant.Domain.Events.Restaurant
 
         public Guid TownId { get; set; }
 
-        public string OwnerId { get; set; }
+        public Guid OwnerId { get; set; }
 
         public DateTime Date { get; set; }
     }

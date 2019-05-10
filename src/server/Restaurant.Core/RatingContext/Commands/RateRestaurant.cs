@@ -1,4 +1,5 @@
-﻿using Restaurant.Core._Base;
+﻿using System;
+using Restaurant.Core._Base;
 using Restaurant.Core.RatingContext.HttpRequests;
 
 namespace Restaurant.Core.RatingContext.Commands
@@ -9,7 +10,7 @@ namespace Restaurant.Core.RatingContext.Commands
         {           
         }
 
-        public RateRestaurant(int stars, string restaurantId, string userId)
+        public RateRestaurant(int stars, string restaurantId, Guid userId)
         {
             Stars = stars;
             RestaurantId = restaurantId;
@@ -18,6 +19,6 @@ namespace Restaurant.Core.RatingContext.Commands
 
         public string RestaurantId { get; set; }
 
-        public string UserId { get; set; }
+        public Guid UserId { get; set; }
     }
 }

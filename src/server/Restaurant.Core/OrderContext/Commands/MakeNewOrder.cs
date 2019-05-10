@@ -1,11 +1,12 @@
-﻿using Restaurant.Core._Base;
+﻿using System;
+using Restaurant.Core._Base;
 using Restaurant.Core.OrderContext.HttpRequests;
 
 namespace Restaurant.Core.OrderContext.Commands
 {
     public class MakeNewOrder : MakeOrderRequest, ICommand
     {
-        public MakeNewOrder(string mealId, int quantity, string userId)
+        public MakeNewOrder(string mealId, int quantity, Guid userId)
         {
             UserId = userId;
             MealId = mealId;
@@ -14,6 +15,6 @@ namespace Restaurant.Core.OrderContext.Commands
 
         public string MealId { get; set; }
 
-        public string UserId { get; set; }
+        public Guid UserId { get; set; }
     }
 }
