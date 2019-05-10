@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using System;
+using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Optional;
 using Optional.Async;
@@ -13,6 +14,11 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
+using Marten;
+using MediatR;
+using Restaurant.Business._Base;
+using Restaurant.Domain.Events.User;
+using Restaurant.Domain.Events._Base;
 
 namespace Restaurant.Business.AuthContext.CommandHandlers
 {
@@ -21,23 +27,32 @@ namespace Restaurant.Business.AuthContext.CommandHandlers
         private readonly IJwtFactory _jwtFactory;
         private readonly UserManager<User> _userManager;
         private readonly IValidator<Login> _validator;
+        private readonly IDocumentSession _session;
+        private readonly IEventBus _eventBus;
 
         public LoginHandler(
             UserManager<User> userManager, 
             IJwtFactory jwtFactory,
-            IValidator<Login> validator)
+            IValidator<Login> validator,
+            IDocumentSession session,
+            IEventBus eventBus)
         {
             _userManager = userManager;
             _jwtFactory = jwtFactory;
             _validator = validator;
+            _session = session;
+            _eventBus = eventBus;
         }
+
+
 
         public Task<Option<JwtView, Error>> Handle(Login command, CancellationToken cancellationToken = default) =>
             ValidateCommand(command).FlatMapAsync(cmd =>
             FindUser(command.Email).FlatMapAsync(user =>
             CheckPassword(user, command.Password).FlatMapAsync(_ =>
+            PublishEventAsync(user.Id, user.LogInUser()).FlatMapAsync(__ =>
             GetExtraClaims(user).MapAsync(async claims =>
-            GenerateJwt(user, claims)))));
+            GenerateJwt(user, claims))))));
 
         private async Task<Option<bool, Error>> CheckPassword(User user, string password)
         {
@@ -77,6 +92,15 @@ namespace Restaurant.Business.AuthContext.CommandHandlers
 
                 // If the validation result is successful, disregard it and simply return the command
                 .Map(_ => command);
+        }
+
+        private async Task<Option<Unit, Error>> PublishEventAsync(Guid streamId, UserLoggedIn @event)
+        {
+            _session.Events.Append(streamId, @event);
+            await _session.SaveChangesAsync();
+            await _eventBus.Publish(@event);
+
+            return Unit.Value.Some<Unit, Error>();
         }
     }
 }

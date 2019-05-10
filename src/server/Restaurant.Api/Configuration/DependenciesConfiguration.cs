@@ -167,6 +167,7 @@ namespace Restaurant.Api.Configuration
                 options.Events.DatabaseSchemaName = schemaName;
                 options.DatabaseSchemaName = schemaName;
 
+                options.Events.InlineProjections.AggregateStreamsWith<User>();
                 options.Events.InlineProjections.AggregateStreamsWith<Domain.Entities.Restaurant>();
                 options.Events.InlineProjections.AggregateStreamsWith<Rating>();
                 options.Events.InlineProjections.AggregateStreamsWith<Meal>();
