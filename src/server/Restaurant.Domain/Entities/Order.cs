@@ -18,7 +18,7 @@ namespace Restaurant.Domain.Entities
 
         public int Quantity { get; set; }
 
-        public string UserId { get; set; }
+        public Guid UserId { get; set; }
 
         // RELATIONS 
         public virtual Meal Meal { get; set; }

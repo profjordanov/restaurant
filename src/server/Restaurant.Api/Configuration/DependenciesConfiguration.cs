@@ -53,7 +53,7 @@ namespace Restaurant.Api.Configuration
         {
             services.AddTransient<IJwtFactory, JwtFactory>();
 
-            services.AddIdentity<User, IdentityRole>()
+            services.AddIdentity<User, IdentityRole<Guid>>()
                     .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
