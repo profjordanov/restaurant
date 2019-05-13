@@ -53,7 +53,7 @@ namespace Restaurant.Api.Configuration
         {
             services.AddTransient<IJwtFactory, JwtFactory>();
 
-            services.AddIdentity<User, IdentityRole>()
+            services.AddIdentity<User, IdentityRole<Guid>>()
                     .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
@@ -167,6 +167,7 @@ namespace Restaurant.Api.Configuration
                 options.Events.DatabaseSchemaName = schemaName;
                 options.DatabaseSchemaName = schemaName;
 
+                options.Events.InlineProjections.AggregateStreamsWith<User>();
                 options.Events.InlineProjections.AggregateStreamsWith<Domain.Entities.Restaurant>();
                 options.Events.InlineProjections.AggregateStreamsWith<Rating>();
                 options.Events.InlineProjections.AggregateStreamsWith<Meal>();

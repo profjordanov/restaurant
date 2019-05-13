@@ -45,7 +45,7 @@ namespace Restaurant.Business.RatingContext.CommandHandlers
 
         private static Option<Domain.Entities.Restaurant, Error> UserShouldNotRateOwnRestaurant(
             Domain.Entities.Restaurant restaurant,
-            string userId) =>
+            Guid userId) =>
             restaurant.NoneWhen(r =>
                 r.OwnerId == userId,
                 Error.Validation("User cannot rate he/her's own restaurant."));

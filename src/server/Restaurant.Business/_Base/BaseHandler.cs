@@ -39,8 +39,7 @@ namespace Restaurant.Business._Base
         protected IValidator<TCommand> Validator { get; }
 
         public Task<Option<Unit, Error>> Handle(TCommand command, CancellationToken cancellationToken) =>
-            ValidateCommand(command)
-                .FlatMapAsync(Handle);
+            ValidateCommand(command).FlatMapAsync(Handle);
 
         public abstract Task<Option<Unit, Error>> Handle(TCommand command);
 

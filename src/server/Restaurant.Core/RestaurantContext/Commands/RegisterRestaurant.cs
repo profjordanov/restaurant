@@ -1,4 +1,5 @@
-﻿using Restaurant.Core._Base;
+﻿using System;
+using Restaurant.Core._Base;
 using Restaurant.Core.RestaurantContext.HttpRequests;
 
 namespace Restaurant.Core.RestaurantContext.Commands
@@ -9,13 +10,13 @@ namespace Restaurant.Core.RestaurantContext.Commands
         {
         }
 
-        public RegisterRestaurant(string name, string townId, string ownerId)
+        public RegisterRestaurant(string name, string townId, Guid ownerId)
         {
             Name = name;
             TownId = townId;
             OwnerId = ownerId;
         }
 
-        public string OwnerId { get; set; }
+        public Guid OwnerId { get; set; }
     }
 }

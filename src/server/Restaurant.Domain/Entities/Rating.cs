@@ -13,7 +13,7 @@ namespace Restaurant.Domain.Entities
         [Range(0, 10)]
         public int Stars { get; set; }
 
-        public string UserId { get; set; }
+        public Guid UserId { get; set; }
 
         public Guid RestaurantId { get; set; }
 

@@ -31,10 +31,11 @@ namespace Restaurant.Business.AuthContext.CommandHandlers
         }
 
         public override Task<Option<Unit, Error>> Handle(Register command) =>
-            CheckIfUserDoesntExist(command.Email).FlatMapAsync(__ =>
-                PersistUser(command));
+            CheckIfUserDoesntExist(command.Email).FlatMapAsync(_ =>
+            PersistUser(command)).MapAsync(user =>
+            PublishEventsAsync(user.Id, user.RegisterUser()));
 
-        private async Task<Option<Unit, Error>> PersistUser(Register command)
+        private async Task<Option<User, Error>> PersistUser(Register command)
         {
             var user = Mapper.Map<User>(command);
 
@@ -44,7 +45,7 @@ namespace Restaurant.Business.AuthContext.CommandHandlers
                     x => Error.Validation(x.Errors.Select(e => e.Description)));
 
             return creationResult
-                .Map(_ => Unit.Value);
+                .Map(_ => user);
         }
 
         private async Task<Option<User, Error>> CheckIfUserDoesntExist(string email)

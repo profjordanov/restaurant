@@ -18,7 +18,7 @@ namespace Restaurant.Domain.Events.Order
 
         public int Quantity { get; set; }
 
-        public string UserId { get; set; }
+        public Guid UserId { get; set; }
 
         public Guid RestaurantId { get; set; }
     }

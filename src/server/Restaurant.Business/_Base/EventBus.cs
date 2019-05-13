@@ -13,6 +13,12 @@ namespace Restaurant.Business._Base
             _mediator = mediator;
         }
 
+        public Task Publish<TEvent>(TEvent @event)
+            where TEvent : IEvent
+        {
+            return _mediator.Publish(@event);
+        }
+
         public async Task Publish<TEvent>(params TEvent[] events) 
             where TEvent : IEvent
         {

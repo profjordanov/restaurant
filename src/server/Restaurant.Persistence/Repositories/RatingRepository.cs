@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using Restaurant.Domain.Entities;
 using Restaurant.Domain.Repositories;
 using Restaurant.Persistence.EntityFramework;
@@ -15,7 +16,7 @@ namespace Restaurant.Persistence.Repositories
             _dbContext = applicationDbContext;
         }
 
-        public Task<Rating> GetByUserIdAndRestaurantIdAsync(string userId, string restaurantId) =>
+        public Task<Rating> GetByUserIdAndRestaurantIdAsync(Guid userId, string restaurantId) =>
             _dbContext
                 .Ratings
                 .Include(rating => rating.Restaurant)
