@@ -66,7 +66,7 @@ namespace Restaurant.Business.ReportContext.Generators
 
         protected override string GetReportFileName()
         {
-            return $"users_logins_report_by_{DateTime.Now.ToString(CultureInfo.InvariantCulture)}.xlsx";
+            return $"user_logins_report_{DateTime.Now.Date.ToShortDateString()}.xlsx";
         }
 
         private IRow WriteHeaders(ISheet sheet)
