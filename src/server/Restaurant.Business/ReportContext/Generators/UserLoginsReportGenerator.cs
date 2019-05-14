@@ -20,7 +20,6 @@ namespace Restaurant.Business.ReportContext.Generators
         private const int RowsDefaultHeight = 400;
         private const string ValuesDataFormat = "#,##0.00";
 
-
         private static readonly byte[] YellowBackgroundRgb = { 253, 184, 19 };
         private static readonly byte[] LightYellowBackgroundRgb = { 244, 200, 91 };
         private static readonly byte[] LightGrayBackgroundRgb = { 103, 112, 119 };
@@ -32,6 +31,7 @@ namespace Restaurant.Business.ReportContext.Generators
 
         // Dependencies
         private readonly IDocumentSession _session;
+
         private ISheet _sheet;
         private ICellStyle _valueCellStyle;
 
@@ -54,7 +54,13 @@ namespace Restaurant.Business.ReportContext.Generators
 
         protected override bool DecorateCells()
         {
-            throw new NotImplementedException();
+            _sheet.DisplayGridlines = false;
+            for (var i = 0; i < _sheet.GetRow(ColumnHeaderStartPosition).Cells.Count; i++)
+            {
+                _sheet.SetColumnWidth(i, ColumnWidthM);
+            }
+
+            return true;
         }
 
         protected override string GetReportFileName()
@@ -126,6 +132,19 @@ namespace Restaurant.Business.ReportContext.Generators
 
             return true;
         }
+
+        private ICell CreateUserDetailCell(IRow row, int columnIndex, string value)
+        {
+            var cell = row.CreateCell(columnIndex);
+
+            cell.SetCellValue(value);
+            cell.CellStyle = ValueCellStyle;
+            cell.Row.Height = RowsDefaultHeight;
+
+            return cell;
+        }
+
+        #region CellsDecoration
 
         private XSSFCellStyle GetYellowHeaderStyle()
         {
@@ -218,17 +237,6 @@ namespace Restaurant.Business.ReportContext.Generators
             return font;
         }
 
-        private ICell CreateUserDetailCell(IRow row, int columnIndex, string value)
-        {
-            var cell = row.CreateCell(columnIndex);
-
-            cell.SetCellValue(value);
-            cell.CellStyle = ValueCellStyle;
-            cell.Row.Height = RowsDefaultHeight;
-
-            return cell;
-        }
-
         public ICellStyle ValueCellStyle
         {
             get => _valueCellStyle ?? (_valueCellStyle = GetValueCellStyle());
@@ -256,5 +264,7 @@ namespace Restaurant.Business.ReportContext.Generators
 
             return font;
         }
+
+        #endregion
     }
 }

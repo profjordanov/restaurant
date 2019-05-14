@@ -32,7 +32,7 @@ namespace Restaurant.Business.ReportContext._Base
             if (!PrepareReport(model))
                 return null;
 
-            //DecorateCells();
+            DecorateCells();
 
             return WriteToFile();
         }
