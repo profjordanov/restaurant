@@ -36,7 +36,7 @@ namespace Restaurant.Business.ReportContext.Generators
         private ICellStyle _valueCellStyle;
 
         public UserLoginsReportGenerator(IWorkbook workbook, IDocumentSession session)
-			:base(workbook)
+            :base(workbook)
         {
             _session = session;
         }
@@ -58,7 +58,7 @@ namespace Restaurant.Business.ReportContext.Generators
             _sheet.DisplayGridlines = false;
             for (var i = 0; i < _sheet.GetRow(ColumnHeaderStartPosition).Cells.Count; i++)
             {
-                _sheet.SetColumnWidth(i, ColumnWidthM);
+                _sheet.SetColumnWidth(i, ColumnWidthXXL);
             }
 
             return true;
@@ -129,6 +129,10 @@ namespace Restaurant.Business.ReportContext.Generators
                 CreateUserDetailCell(row, columnIndex, userLoggedIn.UserId.ToString());
                 columnIndex++;
                 CreateUserDetailCell(row, columnIndex, userLoggedIn.DateTime.ToString());
+
+                // new row
+                rowIndex++;
+                columnIndex = 0;
             }
 
             return true;

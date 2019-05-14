@@ -61,11 +61,11 @@ namespace Restaurant.Api
 
             services.AddMediatR();
 
-			services.AddExcelWorkbook();
+            services.AddExcelWorkbook();
 
             services.AddGenerators();
 
-			services.AddMvc(options =>
+            services.AddMvc(options =>
             {
                 options.ModelBinderProviders.Insert(0, new OptionModelBinderProvider());
                 options.Filters.Add<ExceptionFilter>();

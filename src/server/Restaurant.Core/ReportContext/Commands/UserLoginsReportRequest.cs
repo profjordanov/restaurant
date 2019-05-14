@@ -4,9 +4,9 @@ namespace Restaurant.Core.ReportContext.Commands
 {
     public class UserLoginsReportRequest : ICommand<HttpFile>
     {
-	    public UserLoginsReportRequest()
-	    {
-		    
-	    }
+        public UserLoginsReportRequest()
+        {
+            
+        }
     }
 }

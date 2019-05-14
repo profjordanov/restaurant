@@ -18,6 +18,6 @@ namespace Restaurant.Business.ReportContext.CommandHandlers
         }
 
         public async Task<Option<HttpFile, Error>> Handle(UserLoginsReportRequest request, CancellationToken cancellationToken) =>
-	        _generator.GetReport(request).SomeNotNull(Error.Validation("Report cannot be null!"));
+            _generator.GetReport(request).SomeNotNull(Error.Validation("Report cannot be null!"));
     }
 }

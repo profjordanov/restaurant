@@ -24,7 +24,7 @@ namespace Restaurant.Business.ReportContext._Base
 
         protected ExcelReportBase(IWorkbook workbook)
         {
-	        Workbook = workbook;
+            Workbook = workbook;
         }
 
         public virtual HttpFile GetReport(TReportModel model)

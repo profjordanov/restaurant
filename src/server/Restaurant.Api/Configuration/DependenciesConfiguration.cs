@@ -54,10 +54,10 @@ namespace Restaurant.Api.Configuration
 
         public static void AddExcelWorkbook(this IServiceCollection services)
         {
-	        services.AddTransient<IWorkbook, XSSFWorkbook>();
+            services.AddTransient<IWorkbook, XSSFWorkbook>();
         }
 
-		public static void AddGenerators(this IServiceCollection services)
+        public static void AddGenerators(this IServiceCollection services)
         {
             services.AddTransient<UserLoginsReportGenerator>();
         }
