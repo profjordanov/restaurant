@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using Restaurant.Domain.Entities;
+﻿using Restaurant.Domain.Entities;
+using System.Threading.Tasks;
 
 namespace Restaurant.Domain.Repositories
 {

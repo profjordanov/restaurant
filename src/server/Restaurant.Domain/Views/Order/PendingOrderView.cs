@@ -1,5 +1,5 @@
-﻿using System;
-using Restaurant.Domain.Views.Meal;
+﻿using Restaurant.Domain.Views.Meal;
+using System;
 
 namespace Restaurant.Domain.Views.Order
 {

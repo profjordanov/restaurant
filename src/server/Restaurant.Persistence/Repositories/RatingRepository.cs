@@ -1,8 +1,8 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Restaurant.Domain.Entities;
 using Restaurant.Domain.Repositories;
 using Restaurant.Persistence.EntityFramework;
+using System;
 using System.Threading.Tasks;
 
 namespace Restaurant.Persistence.Repositories

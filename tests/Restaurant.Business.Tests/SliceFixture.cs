@@ -1,14 +1,14 @@
-﻿using Restaurant.Api;
-using Restaurant.Core;
-using Restaurant.Persistence.EntityFramework;
-using Marten;
+﻿using Marten;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Restaurant.Api;
+using Restaurant.Core;
+using Restaurant.Core._Base;
+using Restaurant.Persistence.EntityFramework;
 using System;
 using System.IO;
 using System.Threading.Tasks;
-using Restaurant.Core._Base;
 
 namespace Restaurant.Business.Tests
 {

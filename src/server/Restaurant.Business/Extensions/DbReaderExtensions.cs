@@ -13,9 +13,9 @@ namespace Restaurant.Business.Extensions
         /// </summary>
         public static T Fill<T>(this DbDataReader reader, T obj)
         {
-	        var columns = Enumerable.Range(0, reader.FieldCount).Select(reader.GetName).ToList();
+            var columns = Enumerable.Range(0, reader.FieldCount).Select(reader.GetName).ToList();
 
-			foreach (PropertyDescriptor prop in TypeDescriptor.GetProperties(obj))
+            foreach (PropertyDescriptor prop in TypeDescriptor.GetProperties(obj))
             {
                 if (prop.IsReadOnly)
                     continue;

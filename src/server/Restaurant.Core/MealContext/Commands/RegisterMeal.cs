@@ -1,6 +1,6 @@
-﻿using System;
-using Restaurant.Core._Base;
+﻿using Restaurant.Core._Base;
 using Restaurant.Core.MealContext.HttpRequests;
+using System;
 
 namespace Restaurant.Core.MealContext.Commands
 {

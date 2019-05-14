@@ -1,8 +1,8 @@
-﻿using System;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Restaurant.Domain.Entities;
+using System;
 
 namespace Restaurant.Persistence.EntityFramework
 {

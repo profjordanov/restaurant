@@ -1,6 +1,6 @@
-﻿using System;
-using Restaurant.Core._Base;
+﻿using Restaurant.Core._Base;
 using Restaurant.Core.RatingContext.HttpRequests;
+using System;
 
 namespace Restaurant.Core.RatingContext.Commands
 {

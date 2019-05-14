@@ -5,6 +5,10 @@
     <CodeAnalysisRuleSet>..\..\configuration\analyzers.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+
   <ItemGroup>
     <AdditionalFiles Include="..\..\configuration\stylecop.json" Link="stylecop.json" />
   </ItemGroup>

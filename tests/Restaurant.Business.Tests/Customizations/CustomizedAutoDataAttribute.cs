@@ -1,9 +1,9 @@
-﻿using System;
+﻿using AutoFixture;
+using AutoFixture.Xunit2;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using AutoFixture;
-using AutoFixture.Xunit2;
 
 namespace Restaurant.Business.Tests.Customizations
 {

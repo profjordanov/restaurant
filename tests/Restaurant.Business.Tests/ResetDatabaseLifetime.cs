@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
-using Npgsql;
+﻿using Npgsql;
 using Respawn;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Restaurant.Business.Tests
