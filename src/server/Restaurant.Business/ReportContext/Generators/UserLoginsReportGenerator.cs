@@ -64,12 +64,10 @@ namespace Restaurant.Business.ReportContext.Generators
             return true;
         }
 
-        protected override string GetReportFileName()
-        {
-            return $"user_logins_report_{DateTime.Now.Date.ToShortDateString()}.xlsx";
-        }
+        protected override string GetReportFileName() =>
+	        $"user_logins_report_{DateTime.Now.Date.ToShortDateString()}.xlsx";
 
-        private IRow WriteHeaders(ISheet sheet)
+		private IRow WriteHeaders(ISheet sheet)
         {
             var headerRow = sheet.CreateRow(ColumnHeaderStartPosition);
             var userLoggedInInfoHeaders = new[] { nameof(UserLoggedIn.UserId), nameof(UserLoggedIn.DateTime)};
