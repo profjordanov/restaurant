@@ -36,7 +36,7 @@ namespace Restaurant.Business.ReportContext.Generators
         private ICellStyle _valueCellStyle;
 
         public UserLoginsReportGenerator(IWorkbook workbook, IDocumentSession session)
-            :base(workbook)
+            : base(workbook)
         {
             _session = session;
         }
