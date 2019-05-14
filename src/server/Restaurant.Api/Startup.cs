@@ -45,6 +45,8 @@ namespace Restaurant.Api
 
             services.AddDbConnectors();
 
+            services.AddGenerators();
+
             services.AddRepositories();
 
             services.AddMapper();

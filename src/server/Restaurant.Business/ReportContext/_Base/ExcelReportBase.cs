@@ -5,9 +5,10 @@ using Restaurant.Core._Base;
 using System.Collections.Generic;
 using System.IO;
 
-namespace Restaurant.Business.ReportContext
+namespace Restaurant.Business.ReportContext._Base
 {
     public abstract class ExcelReportBase<TReportModel>
+        where TReportModel : ICommand<HttpFile>
     {
         // CONSTANTS
         private const string ApplicationXls = "application/vnd.ms-excel";
@@ -21,16 +22,9 @@ namespace Restaurant.Business.ReportContext
         protected List<ISheet> Sheets;
         protected IWorkbook Workbook;
 
-        protected ExcelReportBase(bool isXssf = false)
+        protected ExcelReportBase()
         {
-            if (isXssf)
-            {
-                Workbook = new XSSFWorkbook();
-            }
-            else
-            {
-                Workbook = new HSSFWorkbook();
-            }
+            Workbook = new XSSFWorkbook();
         }
 
         public virtual HttpFile GetReport(TReportModel model)
@@ -38,7 +32,7 @@ namespace Restaurant.Business.ReportContext
             if (!PrepareReport(model))
                 return null;
 
-            DecorateCells();
+            //DecorateCells();
 
             return WriteToFile();
         }
@@ -53,7 +47,7 @@ namespace Restaurant.Business.ReportContext
         {
             foreach (var sheet in Sheets)
             {
-                for (int i = 0; i < sheet.GetRow(0)?.Cells.Count; i++)
+                for (var i = 0; i < sheet.GetRow(0)?.Cells.Count; i++)
                 {
                     sheet.SetColumnWidth(i, size);
                 }
@@ -62,14 +56,15 @@ namespace Restaurant.Business.ReportContext
 
         protected HttpFile WriteToFile()
         {
-            string mimeType = string.Empty;
-            if (Workbook is XSSFWorkbook)
+            var mimeType = string.Empty;
+            switch (Workbook)
             {
-                mimeType = ApplicationXlsx;
-            }
-            else if (Workbook is HSSFWorkbook)
-            {
-                mimeType = ApplicationXls;
+                case XSSFWorkbook _:
+                    mimeType = ApplicationXlsx;
+                    break;
+                case HSSFWorkbook _:
+                    mimeType = ApplicationXls;
+                    break;
             }
 
             using (var stream = new MemoryStream())

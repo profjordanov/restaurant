@@ -44,8 +44,6 @@ namespace Restaurant.Business.AuthContext.CommandHandlers
             _eventBus = eventBus;
         }
 
-
-
         public Task<Option<JwtView, Error>> Handle(Login command, CancellationToken cancellationToken = default) =>
             ValidateCommand(command).FlatMapAsync(cmd =>
             FindUser(command.Email).FlatMapAsync(user =>

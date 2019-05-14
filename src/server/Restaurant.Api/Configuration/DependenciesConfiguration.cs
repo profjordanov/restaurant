@@ -10,6 +10,7 @@ using Microsoft.IdentityModel.Tokens;
 using Restaurant.Api.OperationFilters;
 using Restaurant.Business._Base;
 using Restaurant.Business.AuthContext;
+using Restaurant.Business.ReportContext.Generators;
 using Restaurant.Core.AuthContext;
 using Restaurant.Core.AuthContext.Configuration;
 using Restaurant.Domain.Connectors;
@@ -47,6 +48,11 @@ namespace Restaurant.Api.Configuration
         public static void AddDbConnectors(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddScoped<IQueryDbConnector, QueryDbConnector>();
+        }
+
+        public static void AddGenerators(this IServiceCollection services)
+        {
+            services.AddTransient<UserLoginsReportGenerator>();
         }
 
         public static void AddJwtIdentity(this IServiceCollection services, IConfigurationSection jwtConfiguration)
