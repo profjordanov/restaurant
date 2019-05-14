@@ -90,7 +90,7 @@ namespace Restaurant.Persistence.Connectors
             Dictionary<string, object> parameters,
             CancellationToken cancellationToken = default)
         {
-            await connection.OpenAsync();
+            await connection.OpenAsync(cancellationToken);
 
             if (parameters == null)
             {
