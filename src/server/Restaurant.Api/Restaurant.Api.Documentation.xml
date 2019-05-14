@@ -63,6 +63,12 @@
             it's just that it will not be properly displayed in the Swagger UI.
             </summary>
         </member>
+        <member name="M:Restaurant.Api.Controllers.ReportsController.GenerateUserLoginReport">
+            <summary>
+            TODO
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Restaurant.Api.Controllers.RestaurantsController.GetRestaurantsByTown(Restaurant.Core.RestaurantContext.Queries.GetAllRestaurantsByTown)">
             <summary>
             Returns all restaurants by town id, ordered by rating.
