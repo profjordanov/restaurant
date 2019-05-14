@@ -22,9 +22,9 @@ namespace Restaurant.Business.ReportContext._Base
         protected List<ISheet> Sheets;
         protected IWorkbook Workbook;
 
-        protected ExcelReportBase()
+        protected ExcelReportBase(IWorkbook workbook)
         {
-            Workbook = new XSSFWorkbook();
+	        Workbook = workbook;
         }
 
         public virtual HttpFile GetReport(TReportModel model)

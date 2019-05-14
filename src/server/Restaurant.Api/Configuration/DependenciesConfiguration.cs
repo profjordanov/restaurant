@@ -27,6 +27,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
 using MappingProfile = Restaurant.Core.AuthContext.MappingProfile;
 
 namespace Restaurant.Api.Configuration
@@ -50,7 +52,12 @@ namespace Restaurant.Api.Configuration
             serviceCollection.AddScoped<IQueryDbConnector, QueryDbConnector>();
         }
 
-        public static void AddGenerators(this IServiceCollection services)
+        public static void AddExcelWorkbook(this IServiceCollection services)
+        {
+	        services.AddTransient<IWorkbook, XSSFWorkbook>();
+        }
+
+		public static void AddGenerators(this IServiceCollection services)
         {
             services.AddTransient<UserLoginsReportGenerator>();
         }

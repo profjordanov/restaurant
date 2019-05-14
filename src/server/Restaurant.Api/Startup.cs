@@ -45,8 +45,6 @@ namespace Restaurant.Api
 
             services.AddDbConnectors();
 
-            services.AddGenerators();
-
             services.AddRepositories();
 
             services.AddMapper();
@@ -63,7 +61,11 @@ namespace Restaurant.Api
 
             services.AddMediatR();
 
-            services.AddMvc(options =>
+			services.AddExcelWorkbook();
+
+            services.AddGenerators();
+
+			services.AddMvc(options =>
             {
                 options.ModelBinderProviders.Insert(0, new OptionModelBinderProvider());
                 options.Filters.Add<ExceptionFilter>();
