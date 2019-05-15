@@ -1,6 +1,6 @@
-﻿using System;
-using Restaurant.Core._Base;
+﻿using Restaurant.Core._Base;
 using Restaurant.Domain.Views.Restaurant;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 

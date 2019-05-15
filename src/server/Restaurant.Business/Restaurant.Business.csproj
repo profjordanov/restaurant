@@ -13,6 +13,7 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="7.0.1" />
     <PackageReference Include="Marten" Version="3.5.0" />
+    <PackageReference Include="NPOI" Version="2.4.1" />
     <PackageReference Include="Optional" Version="4.0.0" />
     <PackageReference Include="Optional.Async" Version="1.2.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.0.2" />

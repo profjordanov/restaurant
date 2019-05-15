@@ -61,6 +61,10 @@ namespace Restaurant.Api
 
             services.AddMediatR();
 
+            services.AddExcelWorkbook();
+
+            services.AddGenerators();
+
             services.AddMvc(options =>
             {
                 options.ModelBinderProviders.Insert(0, new OptionModelBinderProvider());

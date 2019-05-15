@@ -1,8 +1,8 @@
 ﻿using Restaurant.Domain._Base;
+using Restaurant.Domain.Events.Meal;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Restaurant.Domain.Events.Meal;
 
 namespace Restaurant.Domain.Entities
 {

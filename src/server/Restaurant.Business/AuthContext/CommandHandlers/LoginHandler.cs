@@ -1,24 +1,24 @@
-﻿using System;
-using FluentValidation;
+﻿using FluentValidation;
+using Marten;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Optional;
 using Optional.Async;
+using Restaurant.Business._Base;
 using Restaurant.Core._Base;
 using Restaurant.Core.AuthContext;
 using Restaurant.Core.AuthContext.Commands;
 using Restaurant.Domain;
 using Restaurant.Domain.Entities;
+using Restaurant.Domain.Events._Base;
+using Restaurant.Domain.Events.User;
 using Restaurant.Domain.Views.Auth;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
-using Marten;
-using MediatR;
-using Restaurant.Business._Base;
-using Restaurant.Domain.Events.User;
-using Restaurant.Domain.Events._Base;
 
 namespace Restaurant.Business.AuthContext.CommandHandlers
 {
@@ -43,8 +43,6 @@ namespace Restaurant.Business.AuthContext.CommandHandlers
             _session = session;
             _eventBus = eventBus;
         }
-
-
 
         public Task<Option<JwtView, Error>> Handle(Login command, CancellationToken cancellationToken = default) =>
             ValidateCommand(command).FlatMapAsync(cmd =>

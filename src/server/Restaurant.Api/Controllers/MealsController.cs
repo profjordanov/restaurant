@@ -1,6 +1,4 @@
-﻿using System.Net;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +9,8 @@ using Restaurant.Core.OrderContext.Commands;
 using Restaurant.Core.OrderContext.HttpRequests;
 using Restaurant.Domain;
 using Restaurant.Domain.Entities;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace Restaurant.Api.Controllers
 {

@@ -1,9 +1,9 @@
-﻿using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Threading.Tasks;
-using Restaurant.Business.Tests.Customizations;
+﻿using Restaurant.Business.Tests.Customizations;
 using Restaurant.Core.AuthContext.Commands;
 using Shouldly;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Restaurant.Business.Tests.AuthContext

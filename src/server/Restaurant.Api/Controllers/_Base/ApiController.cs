@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Restaurant.Domain;
 using Restaurant.Domain.Enumerations;
 using System.Net;
+using Restaurant.Core._Base;
 
 namespace Restaurant.Api.Controllers._Base
 {
@@ -38,5 +39,8 @@ namespace Restaurant.Api.Controllers._Base
                     return BadRequest(error);
             }
         }
+
+        protected IActionResult File(HttpFile httpFile) =>
+            File(httpFile.Data, httpFile.ContentType, httpFile.FileName);
     }
 }

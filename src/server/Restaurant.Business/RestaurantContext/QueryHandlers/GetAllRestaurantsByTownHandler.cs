@@ -1,5 +1,4 @@
-﻿using System;
-using Optional;
+﻿using Optional;
 using Restaurant.Business.Extensions;
 using Restaurant.Core._Base;
 using Restaurant.Core.RestaurantContext.Queries;
@@ -7,6 +6,7 @@ using Restaurant.Domain;
 using Restaurant.Domain.Connectors;
 using Restaurant.Domain.SQL;
 using Restaurant.Domain.Views.Restaurant;
+using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Threading;

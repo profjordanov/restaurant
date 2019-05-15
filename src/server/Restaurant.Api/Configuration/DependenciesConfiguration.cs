@@ -10,6 +10,7 @@ using Microsoft.IdentityModel.Tokens;
 using Restaurant.Api.OperationFilters;
 using Restaurant.Business._Base;
 using Restaurant.Business.AuthContext;
+using Restaurant.Business.ReportContext.Generators;
 using Restaurant.Core.AuthContext;
 using Restaurant.Core.AuthContext.Configuration;
 using Restaurant.Domain.Connectors;
@@ -26,6 +27,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
 using MappingProfile = Restaurant.Core.AuthContext.MappingProfile;
 
 namespace Restaurant.Api.Configuration
@@ -47,6 +50,16 @@ namespace Restaurant.Api.Configuration
         public static void AddDbConnectors(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddScoped<IQueryDbConnector, QueryDbConnector>();
+        }
+
+        public static void AddExcelWorkbook(this IServiceCollection services)
+        {
+            services.AddTransient<IWorkbook, XSSFWorkbook>();
+        }
+
+        public static void AddGenerators(this IServiceCollection services)
+        {
+            services.AddTransient<UserLoginsReportGenerator>();
         }
 
         public static void AddJwtIdentity(this IServiceCollection services, IConfigurationSection jwtConfiguration)
