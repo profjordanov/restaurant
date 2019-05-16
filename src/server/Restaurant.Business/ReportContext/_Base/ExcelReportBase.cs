@@ -4,6 +4,8 @@ using NPOI.XSSF.UserModel;
 using Restaurant.Core._Base;
 using System.Collections.Generic;
 using System.IO;
+using Optional;
+using Restaurant.Domain;
 
 namespace Restaurant.Business.ReportContext._Base
 {
@@ -29,8 +31,10 @@ namespace Restaurant.Business.ReportContext._Base
 
         public virtual HttpFile GetReport(TReportModel model)
         {
-            if (!PrepareReport(model))
+            if (!PrepareReport(model).HasValue)
+            {
                 return null;
+            }
 
             DecorateCells();
 
@@ -41,7 +45,7 @@ namespace Restaurant.Business.ReportContext._Base
 
         protected abstract string GetReportFileName();
 
-        protected abstract bool PrepareReport(TReportModel model);
+        protected abstract Option<IWorkbook, Error> PrepareReport(TReportModel model);
 
         protected void ResizeColumns(int size)
         {

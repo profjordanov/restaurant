@@ -1,13 +1,15 @@
 ﻿using Marten;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
+using Optional;
 using Restaurant.Business.ReportContext._Base;
 using Restaurant.Core.ReportContext.Commands;
 using Restaurant.Core.ReportContext.Enums;
 using Restaurant.Core.ReportContext.Utils;
+using Restaurant.Domain;
 using Restaurant.Domain.Events.User;
 using System;
-using System.Globalization;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Restaurant.Business.ReportContext.Generators
@@ -27,7 +29,7 @@ namespace Restaurant.Business.ReportContext.Generators
         private static readonly byte[] BlueBackgroundRgb = { 4, 23, 72 };
         private static readonly byte[] WhiteForegroundRgb = { 255, 255, 255 };
 
-        private static int GetValueStartRowIndex => ColumnHeaderRowsCount + ColumnHeaderStartPosition + 1;
+        private static int ValueStartRowIndex => ColumnHeaderRowsCount + ColumnHeaderStartPosition + 1;
 
         // Dependencies
         private readonly IDocumentSession _session;
@@ -41,17 +43,11 @@ namespace Restaurant.Business.ReportContext.Generators
             _session = session;
         }
 
-        protected override bool PrepareReport(UserLoginsReportRequest model)
-        {
-            // initializes data
-            var data = _session.Events.QueryRawEventDataOnly<UserLoggedIn>();
-
-            _sheet = Workbook.CreateSheet("Report");
-
-            WriteHeaders(_sheet);
-            WriteValueRows(_sheet, data.ToArray());
-            return true;
-        }
+        protected override Option<IWorkbook, Error> PrepareReport(UserLoginsReportRequest model) =>
+            CreateReportSheet().FlatMap(sheet =>
+            InitializeData().FlatMap(logIns =>
+            WriteHeaders(sheet).FlatMap(_ =>
+            WriteValueRows(sheet, logIns.ToArray())))).Map(_ => Workbook);
 
         protected override bool DecorateCells()
         {
@@ -65,9 +61,18 @@ namespace Restaurant.Business.ReportContext.Generators
         }
 
         protected override string GetReportFileName() =>
-	        $"user_logins_report_{DateTime.Now.Date.ToShortDateString()}.xlsx";
+            $"user_logins_report_{DateTime.Now.Date.ToShortDateString()}.xlsx";
 
-		private IRow WriteHeaders(ISheet sheet)
+        private Option<IEnumerable<UserLoggedIn>, Error> InitializeData() =>
+            _session.Events.QueryRawEventDataOnly<UserLoggedIn>().Some<IEnumerable<UserLoggedIn>, Error>();
+
+        private Option<ISheet, Error> CreateReportSheet()
+        {
+            _sheet = Workbook.CreateSheet("Report");
+            return _sheet.Some<ISheet, Error>();
+        }
+
+        private Option<IRow, Error> WriteHeaders(ISheet sheet)
         {
             var headerRow = sheet.CreateRow(ColumnHeaderStartPosition);
             var userLoggedInInfoHeaders = new[] { nameof(UserLoggedIn.UserId), nameof(UserLoggedIn.DateTime)};
@@ -85,7 +90,7 @@ namespace Restaurant.Business.ReportContext.Generators
                 CreateHeaderCell(headerRow, columnIndex, userLoggedInInfoHeaders[ columnIndex ], HeaderCellBackgroundColor.Yellow);
             }
 
-            return headerRow;
+            return headerRow.Some<IRow, Error>();
         }
 
         private ICell CreateHeaderCell(IRow row, int columnIndex, string value, HeaderCellBackgroundColor color)
@@ -117,9 +122,9 @@ namespace Restaurant.Business.ReportContext.Generators
             return cell;
         }
 
-        private bool WriteValueRows(ISheet sheet, UserLoggedIn[] loggedIns)
+        private Option<ISheet, Error> WriteValueRows(ISheet sheet, UserLoggedIn[] loggedIns)
         {
-            var rowIndex = GetValueStartRowIndex;
+            var rowIndex = ValueStartRowIndex;
             var columnIndex = 0;
             foreach (var userLoggedIn in loggedIns)
             {
@@ -133,7 +138,7 @@ namespace Restaurant.Business.ReportContext.Generators
                 columnIndex = 0;
             }
 
-            return true;
+            return sheet.Some<ISheet, Error>();
         }
 
         private ICell CreateUserDetailCell(IRow row, int columnIndex, string value)

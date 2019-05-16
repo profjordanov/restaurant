@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using static System.DateTime;
 
 namespace Restaurant.Business.Extensions
 {
@@ -12,13 +13,7 @@ namespace Restaurant.Business.Extensions
                 return 0;
             }
 
-            int intValue;
-            if (int.TryParse(property.ToString(), out intValue))
-            {
-                return intValue;
-            }
-
-            return 0;
+            return int.TryParse(property.ToString(), out var intValue) ? intValue : 0;
         }
 
         public static int? ParseIntegerNullable(object property)
@@ -28,13 +23,7 @@ namespace Restaurant.Business.Extensions
                 return null;
             }
 
-            int intValue;
-            if (int.TryParse(property.ToString(), out intValue))
-            {
-                return intValue;
-            }
-
-            return null;
+            return int.TryParse(property.ToString(), out var intValue) ? (int?) intValue : null;
         }
 
         public static decimal ParseDecimal(object property)
@@ -44,13 +33,7 @@ namespace Restaurant.Business.Extensions
                 return 0;
             }
 
-            decimal decimalValue;
-            if (decimal.TryParse(property.ToString(), out decimalValue))
-            {
-                return decimalValue;
-            }
-
-            return 0;
+            return decimal.TryParse(property.ToString(), out var decimalValue) ? decimalValue : 0;
         }
 
         public static decimal? ParseDecimalNullable(object property)
@@ -60,13 +43,7 @@ namespace Restaurant.Business.Extensions
                 return null;
             }
 
-            decimal decimalValue;
-            if (decimal.TryParse(property.ToString(), out decimalValue))
-            {
-                return decimalValue;
-            }
-
-            return null;
+            return decimal.TryParse(property.ToString(), out var decimalValue) ? (decimal?) decimalValue : null;
         }
 
         public static DateTime ParseDateTime(object property)
@@ -76,7 +53,7 @@ namespace Restaurant.Business.Extensions
                 throw new FormatException();
             }
 
-            return DateTime.Parse(property.ToString(), CultureInfo.CurrentCulture);
+            return Parse(property.ToString(), CultureInfo.CurrentCulture);
         }
 
         public static DateTime? ParseDateTimeNullable(object property)
@@ -86,18 +63,16 @@ namespace Restaurant.Business.Extensions
                 return null;
             }
 
-            DateTime dateValue;
-
             try
             {
-                if (DateTime.TryParse(property.ToString(), out dateValue))
+                if (TryParse(property.ToString(), out var dateValue))
                 {
                     return dateValue;
                 }
             }
             catch (Exception)
             {
-                return dateValue = DateTime.MinValue;
+                return MinValue;
             }
 
             return null;
