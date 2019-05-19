@@ -4,6 +4,9 @@ RESTful Web Services based on ASP.NET Core API, Entity Framework Core Code First
 Anonymous visitors view restaurants and the meals they offer.
 
 Registered users can:
+
 •	Create and rate restaurants.
+
 •	Create, edit and delete meals in restaurants.
+
 •	Make orders and view their own orders.
