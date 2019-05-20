@@ -11,6 +11,9 @@ using Restaurant.Core._Base;
 
 namespace Restaurant.Business.Tests
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class AppFixture
     {
         public static readonly string BaseUrl;
