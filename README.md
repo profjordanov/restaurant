@@ -10,3 +10,5 @@ Registered users can:
 •	Create, edit and delete meals in restaurants.
 
 •	Make orders and view their own orders.
+
+•	It is example application demonstrating a combination between domain-driven design and functional programming. 
