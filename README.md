@@ -10,3 +10,11 @@ Registered users can:
 •	Create, edit and delete meals in restaurants.
 
 •	Make orders and view their own orders.
+
+## Features
+
+1. DDD done by the book
+2. CQRS
+3. Functional style command/query handlers
+4. Event-sourcing
+5. Real-time communications through SignalR
