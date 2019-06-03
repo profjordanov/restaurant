@@ -13,7 +13,7 @@ Registered users can:
 
 ## Features
 
-1. DDD done by the book
+1. Domain-Driven Design in Practice
 2. CQRS
 3. Functional style command/query handlers
 4. Event-sourcing
