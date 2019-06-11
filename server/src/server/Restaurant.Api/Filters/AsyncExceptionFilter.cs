@@ -27,7 +27,7 @@ namespace Restaurant.Api.Filters
             }
 
             context.Result = new ObjectResult(context.Exception);
-            await _asyncLogger.LogCriticalAsync(context.HttpContext, context.Exception, CancellationToken.None);
+            await _asyncLogger.LogCriticalAsync(context.HttpContext, context.Exception, string.Empty, CancellationToken.None);
         }
     }
 }

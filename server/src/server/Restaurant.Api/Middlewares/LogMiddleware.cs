@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Restaurant.Api.Middlewares
 {
+    /// <summary>
+    /// Middleware that logs each request and some other info such as IP addresses to the database.
+    /// </summary>
     public class LogMiddleware
     {
         private readonly RequestDelegate _nextMiddleware;
@@ -20,6 +23,8 @@ namespace Restaurant.Api.Middlewares
 
         public async Task Invoke(HttpContext context)
         {
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
             try
             {
                 await _nextMiddleware(context);
@@ -27,17 +32,20 @@ namespace Restaurant.Api.Middlewares
                 {
                     case 200:
                     case 201:
-                        await _asyncLogger.LogInformationAsync(context, CancellationToken.None);
+                        stopwatch.Stop();
+                        await _asyncLogger.LogInformationAsync(context, stopwatch.ElapsedMilliseconds.ToString(), CancellationToken.None);
                         break;
                     case 204:
-                        await _asyncLogger.LogWarningAsync(context, CancellationToken.None);
+                        stopwatch.Stop();
+                        await _asyncLogger.LogWarningAsync(context, stopwatch.ElapsedMilliseconds.ToString(), CancellationToken.None);
                         break;
                     case 400:
                     case 404:
                     case 401:
                     case 403:
                     case 409:
-                        await _asyncLogger.LogErrorAsync(context, CancellationToken.None);
+                        stopwatch.Stop();
+                        await _asyncLogger.LogErrorAsync(context, stopwatch.ElapsedMilliseconds.ToString(), CancellationToken.None);
                         break;
                     default:
                         break;
