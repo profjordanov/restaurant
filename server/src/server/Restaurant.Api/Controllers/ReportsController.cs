@@ -17,10 +17,10 @@ namespace Restaurant.Api.Controllers
             _mediator = mediator;
         }
 
-		/// <summary>
-		/// TODO
-		/// </summary>
-		/// <returns></returns>
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <returns></returns>
         [HttpPost("user-logins")]
         public async Task<IActionResult> GenerateUserLoginReport() =>
             (await _mediator.Send(new UserLoginsReportRequest()))
