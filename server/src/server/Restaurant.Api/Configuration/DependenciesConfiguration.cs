@@ -119,22 +119,29 @@ namespace Restaurant.Api.Configuration
         {
             services.AddSwaggerGen(setup =>
             {
-                setup.SwaggerDoc("v1", new Info { Title = "Restaurant.Api", Version = "v1" });
-                setup.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "Restaurant.Api.Documentation.xml"));
+                var documentationPath = Path.Combine(AppContext.BaseDirectory, "Restaurant.Api.Documentation.xml");
 
-                setup.AddSecurityDefinition("Bearer",
-                    new ApiKeyScheme
+                if (File.Exists(documentationPath))
+                {
+                    setup.IncludeXmlComments(documentationPath);
+
+                    var securityScheme = new ApiKeyScheme
                     {
                         In = "header",
                         Description = "Enter 'Bearer {token}' (don't forget to add 'bearer') into the field below.",
                         Name = "Authorization",
                         Type = "apiKey"
-                    });
+                    };
 
-                setup.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>
-                {
-                    { "Bearer", Enumerable.Empty<string>() },
-                });
+                    setup.AddSecurityDefinition("Bearer", securityScheme);
+
+                    setup.SwaggerDoc("v1", new Info { Title = "Restaurant.Api", Version = "v1" });
+
+                    setup.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>
+                    {
+                        { "Bearer", Enumerable.Empty<string>() },
+                    });
+                }
 
                 setup.OperationFilter<OptionOperationFilter>();
             });

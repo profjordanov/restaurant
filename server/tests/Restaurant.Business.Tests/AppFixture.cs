@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Restaurant.Api;
 using Restaurant.Core._Base;
+using Restaurant.Persistence.EntityFramework;
 using System;
 using System.Net;
 using System.Net.Http;
@@ -19,6 +20,9 @@ namespace Restaurant.Business.Tests
         public static readonly string BaseUrl;
         private static readonly IConfiguration _configuration;
         private static readonly IServiceScopeFactory _scopeFactory;
+
+        public static string EventStoreConnectionString => _configuration.GetSection("EventStore")[ "ConnectionString" ];
+        public static string RelationalDbConnectionString => _configuration.GetConnectionString("DefaultConnection");
 
         static AppFixture()
         {
@@ -38,6 +42,34 @@ namespace Restaurant.Business.Tests
             {
                 _configuration = scope.ServiceProvider.GetService<IConfiguration>();
             }
+        }
+
+        public Task ExecuteDbContextAsync(Func<ApplicationDbContext, Task> action) =>
+            ExecuteScopeAsync(sp =>
+            {
+                var dbContext = sp.GetService<ApplicationDbContext>();
+
+                return action(dbContext);
+            });
+
+        public Task<T> ExecuteDbContextAsync<T>(Func<ApplicationDbContext, Task<T>> action) =>
+            ExecuteScopeAsync(sp =>
+            {
+                var dbContext = sp.GetService<ApplicationDbContext>();
+
+                return action(dbContext);
+            });
+
+        public Task ExecuteHttpClientAsync(Func<HttpClient, Task> action, string accessToken = null)
+        {
+            var client = BuildHttpClient(accessToken);
+            return action(client);
+        }
+
+        public Task<TResult> ExecuteHttpClientAsync<TResult>(Func<HttpClient, Task<TResult>> action, string accessToken = null)
+        {
+            var client = BuildHttpClient(accessToken);
+            return action(client);
         }
 
         public async Task ExecuteScopeAsync(Func<IServiceProvider, Task> action)
@@ -72,10 +104,36 @@ namespace Restaurant.Business.Tests
             }
         }
 
+        public async Task ExecuteServiceAsync<TService>(Func<TService, Task> action)
+        {
+            var service = await ExecuteScopeAsync(async sp => sp.GetRequiredService<TService>());
+            await action(service);
+        }
+
         public string GetCompleteServerUrl(string route)
         {
             route = route.TrimStart('/', '\\');
             return $"{BaseUrl}/{route}";
+        }
+
+        public Task<TResponse> SendAsync<TResponse>(IRequest<TResponse> request)
+        {
+            return ExecuteScopeAsync(sp =>
+            {
+                var mediator = sp.GetService<IMediator>();
+
+                return mediator.Send(request);
+            });
+        }
+
+        public Task SendAsync(IRequest request)
+        {
+            return ExecuteScopeAsync(sp =>
+            {
+                var mediator = sp.GetService<IMediator>();
+
+                return mediator.Send(request);
+            });
         }
 
         public Task SendManyAsync(params ICommand[] commands)
@@ -107,7 +165,6 @@ namespace Restaurant.Business.Tests
 
             return client;
         }
-
         private static int GetFreeTcpPort()
         {
             var listener = new TcpListener(IPAddress.Loopback, 0);

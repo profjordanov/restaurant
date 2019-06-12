@@ -33,8 +33,8 @@ namespace Restaurant.Business.Tests
 
         public async Task InitializeAsync()
         {
-            await Reset(_relationalCheckpoint, SliceFixture.RelationalDbConnectionString);
-            await Reset(_eventStoreCheckpoint, SliceFixture.EventStoreConnectionString);
+            await Reset(_relationalCheckpoint, AppFixture.RelationalDbConnectionString);
+            await Reset(_eventStoreCheckpoint, AppFixture.EventStoreConnectionString);
         }
 
         public Task DisposeAsync() => Task.CompletedTask;

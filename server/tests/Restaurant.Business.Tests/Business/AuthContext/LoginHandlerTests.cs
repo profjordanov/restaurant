@@ -6,15 +6,15 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Restaurant.Business.Tests.AuthContext
+namespace Restaurant.Business.Tests.Business.AuthContext
 {
     public class LoginHandlerTests : ResetDatabaseLifetime
     {
-        private readonly SliceFixture _fixture;
+        private readonly AppFixture _fixture;
 
         public LoginHandlerTests()
         {
-            _fixture = new SliceFixture();
+            _fixture = new AppFixture();
         }
 
         [Theory]
@@ -22,6 +22,7 @@ namespace Restaurant.Business.Tests.AuthContext
         public async Task CanLogin(Register registerUserCommand)
         {
             // Arrange
+            registerUserCommand.Email = "test@email.com";
             await _fixture.SendAsync(registerUserCommand);
 
             var loginCommand = new Login
