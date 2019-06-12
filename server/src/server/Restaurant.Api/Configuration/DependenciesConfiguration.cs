@@ -2,11 +2,14 @@
 using Marten;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
 using Restaurant.Api.OperationFilters;
 using Restaurant.Business._Base;
 using Restaurant.Business.AuthContext;
@@ -27,8 +30,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using NPOI.SS.UserModel;
-using NPOI.XSSF.UserModel;
 using MappingProfile = Restaurant.Core.AuthContext.MappingProfile;
 
 namespace Restaurant.Api.Configuration
@@ -200,6 +201,11 @@ namespace Restaurant.Api.Configuration
             services.AddSingleton<IDocumentStore>(documentStore);
 
             services.AddScoped(sp => sp.GetService<IDocumentStore>().OpenSession());
+        }
+
+        public static void AddDatabaseLogger(this IServiceCollection services)
+        {
+            services.AddTransient<IAsyncLogger, AsyncDatabaseLogger>();
         }
     }
 }

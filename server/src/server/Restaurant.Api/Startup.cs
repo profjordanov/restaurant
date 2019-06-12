@@ -9,9 +9,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Restaurant.Api.Configuration;
 using Restaurant.Api.Filters;
+using Restaurant.Api.Middlewares;
 using Restaurant.Api.ModelBinders;
 using Restaurant.Core.AuthContext.Commands;
 using Restaurant.Core.AuthContext.Configuration;
+using Restaurant.Domain.Connectors;
 using Restaurant.Domain.Entities;
 using Restaurant.Persistence.Connectors;
 using Restaurant.Persistence.EntityFramework;
@@ -65,11 +67,21 @@ namespace Restaurant.Api
 
             services.AddGenerators();
 
+            services.AddDatabaseLogger();
+
+            services.AddHttpContextAccessor();
+
             services.AddMvc(options =>
             {
                 options.ModelBinderProviders.Insert(0, new OptionModelBinderProvider());
-                options.Filters.Add<ExceptionFilter>();
+
                 options.Filters.Add<ModelStateFilter>();
+
+                options.Filters.Add(
+                    new AsyncExceptionFilter(
+                        services.BuildServiceProvider().GetRequiredService<IAsyncLogger>()));
+
+                options.RespectBrowserAcceptHeader = true;
             })
             .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<RegisterValidator>())
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
@@ -84,6 +96,7 @@ namespace Restaurant.Api
             ApplicationDbContext dbContext,
             UserManager<User> userManager)
         {
+
             if (env.IsDevelopment())
             {
                 dbContext.Database.EnsureCreated();
@@ -93,6 +106,8 @@ namespace Restaurant.Api
             {
                 app.UseHsts();
             }
+
+            app.UseMiddleware<LogMiddleware>();
 
             loggerFactory.AddLogging(Configuration.GetSection("Logging"));
 

@@ -1,13 +1,13 @@
-﻿using System;
+﻿using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Restaurant.Api;
+using Restaurant.Core._Base;
+using System;
 using System.Net;
 using System.Net.Http;
 using System.Net.Sockets;
 using System.Threading.Tasks;
-using MediatR;
-using Restaurant.Core._Base;
 
 namespace Restaurant.Business.Tests
 {

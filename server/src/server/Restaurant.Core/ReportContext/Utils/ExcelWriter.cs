@@ -41,17 +41,17 @@ namespace Restaurant.Core.ReportContext.Utils
 
         public static string GetCellFormat(Type t)
         {
-            if(t == typeof(DateTime))
+            if (t == typeof(DateTime))
             {
                 return DefaultDateFormat;
             }
 
-            if(t == typeof(decimal))
+            if (t == typeof(decimal))
             {
                 return DefaultNumericFormat;
             }
 
-            if(t == typeof(long))
+            if (t == typeof(long))
             {
                 return DefaultInt64Format;
             }

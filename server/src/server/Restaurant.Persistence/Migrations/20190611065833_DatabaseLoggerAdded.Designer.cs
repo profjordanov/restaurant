@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Restaurant.Persistence.EntityFramework;
@@ -9,9 +10,10 @@ using Restaurant.Persistence.EntityFramework;
 namespace Restaurant.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190611065833_DatabaseLoggerAdded")]
+    partial class DatabaseLoggerAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -139,8 +141,6 @@ namespace Restaurant.Persistence.Migrations
                     b.Property<string>("HttpMethod");
 
                     b.Property<int>("HttpStatusCode");
-
-                    b.Property<string>("LoadTimeInMilliseconds");
 
                     b.Property<string>("LogLevel");
 

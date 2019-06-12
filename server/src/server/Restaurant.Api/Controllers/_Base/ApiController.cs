@@ -1,9 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Restaurant.Core._Base;
 using Restaurant.Domain;
 using Restaurant.Domain.Enumerations;
 using System.Net;
-using Restaurant.Core._Base;
 
 namespace Restaurant.Api.Controllers._Base
 {

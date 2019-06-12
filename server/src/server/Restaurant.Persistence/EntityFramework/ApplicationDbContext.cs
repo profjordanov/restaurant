@@ -25,6 +25,8 @@ namespace Restaurant.Persistence.EntityFramework
 
         public DbSet<Order> Orders { get; set; }
 
+        public DbSet<Log> Logs { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

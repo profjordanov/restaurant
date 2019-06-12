@@ -104,6 +104,11 @@
             Enables using method groups when matching on Unit.
             </summary>
         </member>
+        <member name="T:Restaurant.Api.Middlewares.LogMiddleware">
+            <summary>
+            Middleware that logs each request and some other info such as IP addresses to the database.
+            </summary>
+        </member>
         <member name="T:Restaurant.Api.OperationFilters.OptionOperationFilter">
             <summary>
             This operation filter only works on <see cref="T:Optional.Option"/> types that are contained in a class.
