@@ -11,8 +11,8 @@ namespace Restaurant.Business.Tests.Business.AuthContext
 {
     public class RegisterHandlerTests : ResetDatabaseLifetime
     {
-	    private const string RegisterUserCommandEmail = "test@email.com";
-		private readonly AppFixture _fixture;
+        private const string RegisterUserCommandEmail = "test@email.com";
+        private readonly AppFixture _fixture;
 
         public RegisterHandlerTests()
         {
