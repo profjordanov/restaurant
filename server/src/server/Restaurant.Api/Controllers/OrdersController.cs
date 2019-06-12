@@ -6,6 +6,9 @@ using Restaurant.Api.Controllers._Base;
 using Restaurant.Core.OrderContext.HttpRequests;
 using Restaurant.Core.OrderContext.Queries;
 using Restaurant.Domain.Entities;
+using Restaurant.Domain.Views.Order;
+using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Restaurant.Api.Controllers
@@ -39,6 +42,7 @@ namespace Restaurant.Api.Controllers
         /// </returns>
         [HttpGet]
         [Route("user-pending-orders")]
+        [ProducesResponseType(typeof(IList<PendingOrderView>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> PendingOrders([FromQuery] GetPendingOrdersRequest request)
         {
             var identityUser = await _userManager.GetUserAsync(HttpContext.User);
