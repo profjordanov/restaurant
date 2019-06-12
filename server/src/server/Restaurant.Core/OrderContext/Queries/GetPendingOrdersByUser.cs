@@ -1,19 +1,20 @@
 ﻿using Restaurant.Core._Base;
 using Restaurant.Core.OrderContext.HttpRequests;
 using Restaurant.Domain.Views.Order;
+using System;
 using System.Collections.Generic;
 
 namespace Restaurant.Core.OrderContext.Queries
 {
     public class GetPendingOrdersByUser : GetPendingOrdersRequest, IQuery<IList<PendingOrderView>>
     {
-        public GetPendingOrdersByUser(string userId, int startPage, int limit)
+        public GetPendingOrdersByUser(Guid userId, GetPendingOrdersRequest request)
         {
             UserId = userId;
-            StartPage = startPage;
-            Limit = limit;
+            StartPage = request.StartPage;
+            Limit = request.Limit;
         }
 
-        public string UserId { get; set; }
+        public Guid UserId { get; set; }
     }
 }

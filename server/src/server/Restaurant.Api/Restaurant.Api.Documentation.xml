@@ -63,6 +63,13 @@
             it's just that it will not be properly displayed in the Swagger UI.
             </summary>
         </member>
+        <member name="M:Restaurant.Api.Controllers.OrdersController.PendingOrders(Restaurant.Core.OrderContext.HttpRequests.GetPendingOrdersRequest)">
+            <summary>
+            
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
         <member name="M:Restaurant.Api.Controllers.ReportsController.GenerateUserLoginReport">
             <summary>
             TODO
