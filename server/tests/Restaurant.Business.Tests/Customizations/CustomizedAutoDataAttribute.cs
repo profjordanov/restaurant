@@ -34,6 +34,11 @@ namespace Restaurant.Business.Tests.Customizations
                 // executing tests in parallel which results in unwanted collisions
                 var fixture = new Fixture();
 
+                fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
+                    .ForEach(b => fixture.Behaviors.Remove(b));
+
+                fixture.Behaviors.Add(new OmitOnRecursionBehavior());
+
                 foreach (var customization in _customizations)
                 {
                     fixture.Customize(customization);

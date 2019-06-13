@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace Restaurant.Business.Tests
 {
+    [Obsolete]
     public class SliceFixture
     {
         private static readonly IConfigurationRoot _configuration;
