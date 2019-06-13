@@ -7,6 +7,7 @@ import Logout from "./auth/Logout";
 import { Route, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import UserProvider from "./UserProvider";
 import "./font-awesome.css";
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
         <Route path="/logout" component={Logout} />     
         <Route component={PageNotFound} />
       </Switch>
+      <UserProvider />
       <ToastContainer autoClose={3000} hideProgressBar={true} />
     </div>
   );
