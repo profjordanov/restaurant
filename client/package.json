@@ -3,12 +3,25 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "bootstrap": "^4.3.1",
+    "@aspnet/signalr": "^1.1.4",
+    "@khanacademy/react-multi-select": "^0.3.2",
+    "@opuscapita/react-signalr": "^3.3.0",
+    "bootstrap": "4.3.1",
+    "i": "^0.3.6",
+    "npm": "^6.9.0",
+    "prop-types": "15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-router-dom": "^5.0.0",
-    "react-scripts": "3.0.1",
-    "react-toastify": "^5.2.1"
+    "react-redux": "6.0.1",
+    "react-router-dom": "5.0.0",
+    "react-scripts": "2.1.8",
+    "react-toastify": "^4.5.2",
+    "redux": "4.0.1",
+    "redux-thunk": "2.3.0",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "redux-immutable-state-invariant": "2.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -17,18 +30,43 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended",
+      "plugin:import/errors",
+      "plugin:import/warnings"
     ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+    "parser": "babel-eslint",
+    "parserOptions": {
+      "ecmaVersion": 2018,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
+    "env": {
+      "browser": true,
+      "node": true,
+      "es6": true,
+      "jest": true
+    },
+    "rules": {
+      "no-debugger": "off",
+      "no-console": "off",
+      "no-unused-vars": "warn",
+      "react/prop-types": "warn"
+    },
+    "settings": {
+      "react": {
+        "version": "detect"
+      }
+    },
+    "root": true
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

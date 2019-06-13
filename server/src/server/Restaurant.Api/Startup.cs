@@ -96,6 +96,11 @@ namespace Restaurant.Api
             ApplicationDbContext dbContext,
             UserManager<User> userManager)
         {
+			app.UseCors(builder => builder
+			   .AllowAnyOrigin()
+			   .AllowAnyMethod()
+			   .AllowAnyHeader()
+			   .AllowCredentials());
 
             if (env.IsDevelopment())
             {
