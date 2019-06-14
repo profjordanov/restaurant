@@ -1,6 +1,12 @@
-﻿using Restaurant.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Restaurant.Domain.Entities;
 using Restaurant.Domain.Repositories;
+using Restaurant.Domain.SpecificationPattern;
 using Restaurant.Persistence.EntityFramework;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Restaurant.Persistence.Repositories
@@ -13,6 +19,21 @@ namespace Restaurant.Persistence.Repositories
         {
             _dbContext = dbContext;
         }
+
+        public Task<List<Order>> GetList(
+            Specification<Order> specification,
+            Guid userId,
+            CancellationToken cancellationToken,
+            int page = 0,
+            int pageSize = 20) =>
+            _dbContext
+                .Orders
+                .Where(specification.ToExpression())
+                .Where(order => order.UserId == userId)
+                .Skip(page * pageSize)
+                .Take(pageSize)
+                .Include(order => order.Meal)
+                .ToListAsync(cancellationToken);
 
         public async Task<Order> SaveAsync(Order order)
         {

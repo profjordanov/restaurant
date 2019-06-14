@@ -6,7 +6,7 @@ namespace Restaurant.Core.OrderContext.HttpRequests
     {
         public int StartPage { get; set; }
 
-        [Range(2, 10)]
+        [Range(0, 20)]
         public int Limit { get; set; }
     }
 }
