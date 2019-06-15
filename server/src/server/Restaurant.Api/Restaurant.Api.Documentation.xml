@@ -39,11 +39,10 @@
         </member>
         <member name="M:Restaurant.Api.Controllers.MealsController.MakeOrder(System.String,Restaurant.Core.OrderContext.HttpRequests.MakeOrderRequest)">
             <summary>
-            TODO
+            Creates a new order of a meal in a specified quantity.
             </summary>
-            <param name="id"></param>
-            <param name="request"></param>
-            <returns></returns>
+            <param name="id">Meal ID</param>
+            <param name="request">quantity</param>
         </member>
         <member name="M:Restaurant.Api.Controllers.OptionController.Get(Restaurant.Api.Controllers.OptionController.ParametersDemo)">
             <summary>
@@ -80,9 +79,9 @@
         </member>
         <member name="M:Restaurant.Api.Controllers.ReportsController.GenerateUserLoginReport">
             <summary>
-            TODO
+            Generates Excel Report for User Logins.
             </summary>
-            <returns></returns>
+            <returns>Excel file.</returns>
         </member>
         <member name="M:Restaurant.Api.Controllers.RestaurantsController.GetRestaurantsByTown(Restaurant.Core.RestaurantContext.Queries.GetAllRestaurantsByTown)">
             <summary>

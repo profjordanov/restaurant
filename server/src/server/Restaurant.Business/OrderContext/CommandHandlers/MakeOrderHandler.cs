@@ -36,7 +36,7 @@ namespace Restaurant.Business.OrderContext.CommandHandlers
         private Task<Option<Meal, Error>> EnsureMealExistsByIdAsync(string mealId) =>
             MealRepository
                 .GetByIdAsync(mealId)
-                .SomeNotNull(Error.Validation($"Cannot find meal with ID: {mealId}"));
+                .SomeNotNull(Error.NotFound($"Cannot find meal with ID: {mealId}"));
 
         private async Task<Option<Order, Error>> PersistOrderAsync(MakeNewOrder command)
         {

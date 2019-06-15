@@ -18,9 +18,9 @@ namespace Restaurant.Api.Controllers
         }
 
         /// <summary>
-        /// TODO
+        /// Generates Excel Report for User Logins.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Excel file.</returns>
         [HttpPost("user-logins")]
         public async Task<IActionResult> GenerateUserLoginReport() =>
             (await _mediator.Send(new UserLoginsReportRequest()))

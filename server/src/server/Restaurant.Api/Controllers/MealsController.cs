@@ -52,13 +52,14 @@ namespace Restaurant.Api.Controllers
         }
 
         /// <summary>
-        /// TODO
+        /// Creates a new order of a meal in a specified quantity.
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="request"></param>
-        /// <returns></returns>
+        /// <param name="id">Meal ID</param>
+        /// <param name="request">quantity</param>
         [HttpPost]
         [Route("{id}/order")]
+        [ProducesResponseType(typeof(Unit), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(Error), (int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> MakeOrder([FromRoute] string id, [FromBody] MakeOrderRequest request)
         {
             var identityUser = await _userManager.GetUserAsync(HttpContext.User);

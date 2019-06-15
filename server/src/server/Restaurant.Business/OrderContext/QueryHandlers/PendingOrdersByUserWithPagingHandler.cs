@@ -1,21 +1,19 @@
-﻿using System;
+﻿using AutoMapper;
 using Optional;
 using Restaurant.Business.Extensions;
+using Restaurant.Business.OrderContext.Specifications;
 using Restaurant.Core._Base;
 using Restaurant.Core.OrderContext.Queries;
 using Restaurant.Domain;
 using Restaurant.Domain.Connectors;
-using Restaurant.Domain.SQL;
+using Restaurant.Domain.Repositories;
 using Restaurant.Domain.Views.Meal;
 using Restaurant.Domain.Views.Order;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
-using Optional.Async;
-using Restaurant.Business.OrderContext.Specifications;
-using Restaurant.Domain.Repositories;
 
 namespace Restaurant.Business.OrderContext.QueryHandlers
 {
@@ -49,7 +47,9 @@ namespace Restaurant.Business.OrderContext.QueryHandlers
                     pageSize: request.Limit);
 
             return _mapper.Map<IList<PendingOrderView>>(collection)
-                .SomeNotNull(Error.NotFound("Something"));
+                .SomeWhen(
+                    list => list.Any(),
+                    Error.NotFound("There are no pending orders for current user!"));
         }
 
         //public async Task<Option<IList<PendingOrderView>, Error>> Handle(
