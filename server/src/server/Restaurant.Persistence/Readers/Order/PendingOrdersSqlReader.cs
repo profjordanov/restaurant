@@ -32,7 +32,7 @@ namespace Restaurant.Persistence.Readers.Order
                 (reader, orders) => orders.Add(ParseReaderResult(reader)),
                 new Dictionary<string, object>
                 {
-                    { "@UserID", userId },
+                    { "@UserID", userId.ToString() },
                     { "@LimitCount", limit },
                     { "@OffsetCount", (startPage - 1) * limit }
                 },
