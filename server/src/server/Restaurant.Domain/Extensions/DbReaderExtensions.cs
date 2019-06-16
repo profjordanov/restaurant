@@ -4,7 +4,7 @@ using System.Data;
 using System.Data.Common;
 using System.Linq;
 
-namespace Restaurant.Business.Extensions
+namespace Restaurant.Domain.Extensions
 {
     public static class DbReaderExtensions
     {

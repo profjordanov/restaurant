@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Restaurant.Domain.Entities;
 using Restaurant.Domain.Repositories;
-using Restaurant.Domain.SpecificationPattern;
+using Restaurant.Domain.Specifications._Base;
 using Restaurant.Persistence.EntityFramework;
 using System;
 using System.Collections.Generic;

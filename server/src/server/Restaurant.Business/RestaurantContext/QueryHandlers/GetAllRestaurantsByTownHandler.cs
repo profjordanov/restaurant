@@ -1,9 +1,9 @@
 ﻿using Optional;
-using Restaurant.Business.Extensions;
 using Restaurant.Core._Base;
 using Restaurant.Core.RestaurantContext.Queries;
 using Restaurant.Domain;
 using Restaurant.Domain.Connectors;
+using Restaurant.Domain.Extensions;
 using Restaurant.Domain.SQL;
 using Restaurant.Domain.Views.Restaurant;
 using System;

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Restaurant.Core.OrderContext.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace Restaurant.Core.OrderContext.HttpRequests
 {
@@ -8,5 +9,7 @@ namespace Restaurant.Core.OrderContext.HttpRequests
 
         [Range(0, 20)]
         public int Limit { get; set; }
+
+        public PendingOrdersDataProvider DataProvider { get; set; }
     }
 }

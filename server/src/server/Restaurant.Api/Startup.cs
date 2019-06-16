@@ -71,6 +71,8 @@ namespace Restaurant.Api
 
             services.AddHttpContextAccessor();
 
+            services.AddFileLoaderServices();
+
             services.AddMvc(options =>
             {
                 options.ModelBinderProviders.Insert(0, new OptionModelBinderProvider());
@@ -96,11 +98,11 @@ namespace Restaurant.Api
             ApplicationDbContext dbContext,
             UserManager<User> userManager)
         {
-			app.UseCors(builder => builder
-			   .AllowAnyOrigin()
-			   .AllowAnyMethod()
-			   .AllowAnyHeader()
-			   .AllowCredentials());
+            app.UseCors(builder => builder
+               .AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader()
+               .AllowCredentials());
 
             if (env.IsDevelopment())
             {
@@ -117,9 +119,13 @@ namespace Restaurant.Api
             loggerFactory.AddLogging(Configuration.GetSection("Logging"));
 
             app.UseHttpsRedirection();
+
             app.UseSwagger("Restaurant");
+
             app.UseStaticFiles();
+
             app.UseAuthentication();
+
             app.UseMvc();
         }
     }

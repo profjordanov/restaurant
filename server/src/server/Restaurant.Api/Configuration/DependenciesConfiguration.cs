@@ -2,7 +2,6 @@
 using Marten;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -30,6 +29,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Restaurant.Domain.FileLoaders;
+using Restaurant.Persistence.FileLoaders;
 using MappingProfile = Restaurant.Core.AuthContext.MappingProfile;
 
 namespace Restaurant.Api.Configuration
@@ -162,7 +163,11 @@ namespace Restaurant.Api.Configuration
 
         public static void AddCommonServices(this IServiceCollection services)
         {
+        }
 
+        public static void AddFileLoaderServices(this IServiceCollection services)
+        {
+            services.AddTransient<ICsvFileLoader, CsvFileLoader>();
         }
 
         public static void AddRepositories(this IServiceCollection services)

@@ -1,5 +1,5 @@
 ﻿using Restaurant.Domain.Entities;
-using Restaurant.Domain.SpecificationPattern;
+using Restaurant.Domain.Specifications._Base;
 using System;
 using System.Collections.Generic;
 using System.Threading;

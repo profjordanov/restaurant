@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace Restaurant.Business.Extensions
+namespace Restaurant.Domain.Extensions
 {
     public static class OptionExtensions
     {

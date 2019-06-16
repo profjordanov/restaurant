@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-namespace Restaurant.Domain.SpecificationPattern
+namespace Restaurant.Domain.Specifications._Base
 {
     public abstract class Specification<T>
     {

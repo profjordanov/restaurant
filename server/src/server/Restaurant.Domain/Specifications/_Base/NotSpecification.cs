@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Restaurant.Domain.SpecificationPattern
+namespace Restaurant.Domain.Specifications._Base
 {
     public class NotSpecification<T> : Specification<T>
     {

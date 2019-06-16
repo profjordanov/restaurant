@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Globalization;
-using static System.DateTime;
 
-namespace Restaurant.Business.Extensions
+namespace Restaurant.Domain.Extensions
 {
     public class CustomParser
     {
@@ -53,7 +52,7 @@ namespace Restaurant.Business.Extensions
                 throw new FormatException();
             }
 
-            return Parse(property.ToString(), CultureInfo.CurrentCulture);
+            return DateTime.Parse(property.ToString(), CultureInfo.CurrentCulture);
         }
 
         public static DateTime? ParseDateTimeNullable(object property)
@@ -65,14 +64,14 @@ namespace Restaurant.Business.Extensions
 
             try
             {
-                if (TryParse(property.ToString(), out var dateValue))
+                if (DateTime.TryParse(property.ToString(), out var dateValue))
                 {
                     return dateValue;
                 }
             }
             catch (Exception)
             {
-                return MinValue;
+                return DateTime.MinValue;
             }
 
             return null;
