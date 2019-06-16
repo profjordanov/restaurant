@@ -1,5 +1,3 @@
-![alt text](https://travis-ci.org/profjordanov/restaurant.svg?branch=master)
-
 # Restaurant
 RESTful Web Services based on ASP.NET Core API, Entity Framework Core Code First and PostgreSQL for a nation-wide restaurant system. It is example application demonstrating a combination between domain-driven design and functional programming. The restaurant system hold towns, restaurants, meals, ratings and users. 
 
