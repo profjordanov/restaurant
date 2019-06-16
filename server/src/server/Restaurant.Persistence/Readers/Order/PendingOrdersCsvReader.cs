@@ -28,7 +28,7 @@ namespace Restaurant.Persistence.Readers.Order
             return ParseDataString(fileData);
         }
 
-        private IEnumerable<PendingOrderView> ParseDataString(string csvData)
+        private static IEnumerable<PendingOrderView> ParseDataString(string csvData)
         {
             var people = new List<PendingOrderView>();
             var lines = csvData.Split(new[] { Environment.NewLine }, StringSplitOptions.None);

@@ -53,7 +53,9 @@ namespace Restaurant.Domain.Decorators.Order
             CancellationToken cancellationToken)
         {
             if (IsCacheValid)
+            {
                 return;
+            }
 
             try
             {
@@ -62,22 +64,11 @@ namespace Restaurant.Domain.Decorators.Order
 
                 _dataDateTime = DateTime.Now;
             }
-            catch (Exception exception)
+            catch (Exception)
             {
-                _cachedItems = new List<PendingOrderView>
-                {
-                    new PendingOrderView
-                    {
-                        Id = Guid.Empty,
-                        Quantity = 0,
-                        CreatedOn = DateTime.Now,
-                        Meal = new MealView()
-                    }
-                };
-
                 InvalidateCache();
 
-                Debug.Fail($"{exception.Message}");
+                throw;
             }
         }
 
