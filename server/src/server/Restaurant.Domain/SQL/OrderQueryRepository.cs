@@ -11,7 +11,7 @@ namespace Restaurant.Domain.SQL
 	          INNER JOIN public.""Meals"" as m
 	          ON o.""MealId"" = m.""Id""
               WHERE o.""OrderStatus"" = {(int)OrderStatus.Pending} 
-                    AND o.""UserId"" = '@UserID'
+                    AND o.""UserId"" = @UserID
 	          ORDER BY ""CreatedOn"" DESC
 	          LIMIT @LimitCount OFFSET @OffsetCount";
 
