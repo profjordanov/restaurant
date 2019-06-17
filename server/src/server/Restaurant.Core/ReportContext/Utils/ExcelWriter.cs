@@ -204,7 +204,7 @@ namespace Restaurant.Core.ReportContext.Utils
 
             IWorkbook workbook = new HSSFWorkbook();
             ISheet sheet = workbook.CreateSheet(data.SheetName);
-            IRow headerRow = sheet.CreateRow(0);      //To add a row in the table
+            IRow headerRow = sheet.CreateRow(0);      // To add a row in the table
 
             int columnIndex = 0;
 

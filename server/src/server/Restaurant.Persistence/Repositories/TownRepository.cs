@@ -20,5 +20,8 @@ namespace Restaurant.Persistence.Repositories
             _dbContext
                 .Towns
                 .SingleOrDefaultAsync(town => town.Id == townId);
+
+        public Town GetById(Guid townId) =>
+            _dbContext.Towns.Find(townId);
     }
 }

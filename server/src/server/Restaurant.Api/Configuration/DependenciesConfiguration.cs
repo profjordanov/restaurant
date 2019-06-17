@@ -34,6 +34,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Restaurant.Domain.Decorators.Towns;
 using Restaurant.Domain.Extensions;
 using MappingProfile = Restaurant.Core.AuthContext.MappingProfile;
 
@@ -203,7 +204,7 @@ namespace Restaurant.Api.Configuration
                 options.Events.InlineProjections.AggregateStreamsWith<Meal>();
                 options.Events.InlineProjections.AggregateStreamsWith<Order>();
 
-                //options.Events.InlineProjections.Add(new TabViewProjection());
+                // options.Events.InlineProjections.Add(new TabViewProjection());
 
                 var events = typeof(RestaurantRegistered)
                   .Assembly
@@ -235,9 +236,10 @@ namespace Restaurant.Api.Configuration
 
         public static void AddDecorators(this IServiceCollection services)
         {
-            //services.AddScoped<IPendingOrdersReader, PendingOrdersCachingReader>(
+            // services.AddScoped<IPendingOrdersReader, PendingOrdersCachingReader>(
             //    provider => new PendingOrdersCachingReader(provider.GetService<IPendingOrdersReader>()));
-			services.Decorate<IPendingOrdersReader, PendingOrdersCachingReader>();
+            services.Decorate<IPendingOrdersReader, PendingOrdersCachingReader>();
+            services.Decorate<ITownRepository, CachedTownRepository>();
         }
     }
 }

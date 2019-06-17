@@ -42,6 +42,7 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.1.2" />
     <PackageReference Include="NPOI" Version="2.4.1" />
     <PackageReference Include="Optional" Version="4.0.0" />
+    <PackageReference Include="Scrutor" Version="3.0.2" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="2.0.2" />
     <PackageReference Include="Serilog.Extensions.Logging.File" Version="1.1.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.0.2" />
