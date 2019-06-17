@@ -71,7 +71,11 @@ namespace Restaurant.Api
 
             services.AddHttpContextAccessor();
 
-            services.AddFileLoaderServices();
+            services.AddFileLoader();
+
+            services.AddReaders();
+
+            services.AddDecorators();
 
             services.AddMvc(options =>
             {

@@ -29,8 +29,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Restaurant.Domain.Decorators.Order;
 using Restaurant.Domain.FileLoaders;
+using Restaurant.Domain.Readers.Order;
 using Restaurant.Persistence.FileLoaders;
+using Restaurant.Persistence.Readers.Order;
 using MappingProfile = Restaurant.Core.AuthContext.MappingProfile;
 
 namespace Restaurant.Api.Configuration
@@ -165,7 +168,7 @@ namespace Restaurant.Api.Configuration
         {
         }
 
-        public static void AddFileLoaderServices(this IServiceCollection services)
+        public static void AddFileLoader(this IServiceCollection services)
         {
             services.AddTransient<ICsvFileLoader, CsvFileLoader>();
         }
@@ -218,6 +221,21 @@ namespace Restaurant.Api.Configuration
         public static void AddDatabaseLogger(this IServiceCollection services)
         {
             services.AddTransient<IAsyncLogger, AsyncDatabaseLogger>();
+        }
+
+        public static void AddReaders(this IServiceCollection services)
+        {
+            services.AddTransient<IPendingOrdersReader, PendingOrdersCsvReader>();
+            services.AddTransient<IPendingOrdersReader, PendingOrdersEfReader>(
+                provider => new PendingOrdersEfReader(provider.GetService<IOrderRepository>()));
+            services.AddTransient<IPendingOrdersReader, PendingOrdersSqlReader>(
+                provider => new PendingOrdersSqlReader(provider.GetService<IQueryDbConnector>()));
+        }
+
+        public static void AddDecorators(this IServiceCollection services)
+        {
+            services.AddScoped<IPendingOrdersReader, PendingOrdersCachingReader>(
+                provider => new PendingOrdersCachingReader(provider.GetService<IPendingOrdersReader>()));
         }
     }
 }
