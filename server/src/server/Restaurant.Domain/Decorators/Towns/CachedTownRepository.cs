@@ -17,7 +17,7 @@ namespace Restaurant.Domain.Decorators.Towns
 
         public Task<Town> GetByIdAsync(Guid townId)
         {
-            return new Task<Town>(() => new Town());
+			throw new NotImplementedException();
         }
     }
 }
