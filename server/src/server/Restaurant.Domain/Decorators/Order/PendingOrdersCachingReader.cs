@@ -1,9 +1,7 @@
 ﻿using Restaurant.Domain.Readers.Order;
-using Restaurant.Domain.Views.Meal;
 using Restaurant.Domain.Views.Order;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -76,5 +74,7 @@ namespace Restaurant.Domain.Decorators.Order
         {
             _dataDateTime = DateTime.MinValue;
         }
+
     }
+
 }

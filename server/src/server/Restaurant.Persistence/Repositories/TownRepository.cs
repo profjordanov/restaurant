@@ -2,6 +2,7 @@
 using Restaurant.Domain.Entities;
 using Restaurant.Domain.Repositories;
 using Restaurant.Persistence.EntityFramework;
+using System;
 using System.Threading.Tasks;
 
 namespace Restaurant.Persistence.Repositories
@@ -15,9 +16,9 @@ namespace Restaurant.Persistence.Repositories
             _dbContext = dbContext;
         }
 
-        public Task<Town> GetByIdAsync(string townId) =>
+        public Task<Town> GetByIdAsync(Guid townId) =>
             _dbContext
                 .Towns
-                .SingleOrDefaultAsync(town => town.Id.ToString() == townId);
+                .SingleOrDefaultAsync(town => town.Id == townId);
     }
 }

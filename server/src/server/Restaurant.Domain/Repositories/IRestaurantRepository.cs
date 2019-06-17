@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace Restaurant.Domain.Repositories
 {
@@ -6,7 +7,7 @@ namespace Restaurant.Domain.Repositories
     {
         Task<Domain.Entities.Restaurant> GetByIdAsync(string id);
 
-        Task<Domain.Entities.Restaurant> GetByNameAndTownIdAsync(string name, string townId);
+        Task<Domain.Entities.Restaurant> GetByNameAndTownIdAsync(string name, Guid townId);
 
         Task<Domain.Entities.Restaurant> SaveAsync(Domain.Entities.Restaurant restaurant);
     }

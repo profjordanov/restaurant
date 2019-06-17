@@ -6,7 +6,6 @@ namespace Restaurant.Core.ReportContext.Commands
     {
         public UserLoginsReportRequest()
         {
-            
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Restaurant.Domain.Repositories;
 using Restaurant.Persistence.EntityFramework;
+using System;
 using System.Threading.Tasks;
 
 namespace Restaurant.Persistence.Repositories
@@ -19,11 +20,11 @@ namespace Restaurant.Persistence.Repositories
                 .Restaurants
                 .SingleOrDefaultAsync(restaurant => restaurant.Id.ToString() == id);
 
-        public Task<Domain.Entities.Restaurant> GetByNameAndTownIdAsync(string name, string townId) =>
+        public Task<Domain.Entities.Restaurant> GetByNameAndTownIdAsync(string name, Guid townId) =>
             _dbContext
                 .Restaurants
                 .FirstOrDefaultAsync(restaurant => restaurant.Name == name &&
-                                                   restaurant.TownId.ToString() == townId);
+                                                   restaurant.TownId == townId);
 
         public async Task<Domain.Entities.Restaurant> SaveAsync(Domain.Entities.Restaurant restaurant)
         {

@@ -16,12 +16,17 @@ using Restaurant.Business.ReportContext.Generators;
 using Restaurant.Core.AuthContext;
 using Restaurant.Core.AuthContext.Configuration;
 using Restaurant.Domain.Connectors;
+using Restaurant.Domain.Decorators.Order;
 using Restaurant.Domain.Entities;
 using Restaurant.Domain.Events._Base;
 using Restaurant.Domain.Events.Restaurant;
+using Restaurant.Domain.FileLoaders;
+using Restaurant.Domain.Readers.Order;
 using Restaurant.Domain.Repositories;
 using Restaurant.Persistence.Connectors;
 using Restaurant.Persistence.EntityFramework;
+using Restaurant.Persistence.FileLoaders;
+using Restaurant.Persistence.Readers.Order;
 using Restaurant.Persistence.Repositories;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
@@ -29,11 +34,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Restaurant.Domain.Decorators.Order;
-using Restaurant.Domain.FileLoaders;
-using Restaurant.Domain.Readers.Order;
-using Restaurant.Persistence.FileLoaders;
-using Restaurant.Persistence.Readers.Order;
+using Restaurant.Domain.Extensions;
 using MappingProfile = Restaurant.Core.AuthContext.MappingProfile;
 
 namespace Restaurant.Api.Configuration
@@ -225,17 +226,18 @@ namespace Restaurant.Api.Configuration
 
         public static void AddReaders(this IServiceCollection services)
         {
-            services.AddTransient<IPendingOrdersReader, PendingOrdersCsvReader>();
-            services.AddTransient<IPendingOrdersReader, PendingOrdersEfReader>(
+            services.AddScoped<IPendingOrdersReader, PendingOrdersCsvReader>();
+            services.AddScoped<IPendingOrdersReader, PendingOrdersEfReader>(
                 provider => new PendingOrdersEfReader(provider.GetService<IOrderRepository>()));
-            services.AddTransient<IPendingOrdersReader, PendingOrdersSqlReader>(
+            services.AddScoped<IPendingOrdersReader, PendingOrdersSqlReader>(
                 provider => new PendingOrdersSqlReader(provider.GetService<IQueryDbConnector>()));
         }
 
         public static void AddDecorators(this IServiceCollection services)
         {
-            services.AddScoped<IPendingOrdersReader, PendingOrdersCachingReader>(
-                provider => new PendingOrdersCachingReader(provider.GetService<IPendingOrdersReader>()));
+            //services.AddScoped<IPendingOrdersReader, PendingOrdersCachingReader>(
+            //    provider => new PendingOrdersCachingReader(provider.GetService<IPendingOrdersReader>()));
+			services.Decorate<IPendingOrdersReader, PendingOrdersCachingReader>();
         }
     }
 }

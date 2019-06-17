@@ -40,7 +40,7 @@ namespace Restaurant.Business.RestaurantContext.CommandHandlers
 
         private async Task<Option<Domain.Entities.Restaurant, Error>> RestaurantWithCurrentNameAndTownShouldNotExist(
             string name,
-            string townId) 
+            Guid townId)
         {
             var result = await RestaurantRepository
                 .GetByNameAndTownIdAsync(name, townId);
@@ -50,7 +50,7 @@ namespace Restaurant.Business.RestaurantContext.CommandHandlers
                 .Map(_ => new Domain.Entities.Restaurant());
         }
 
-        private Task<Option<Town, Error>> TownWithCurrentIdShouldExist(string townId) =>
+        private Task<Option<Town, Error>> TownWithCurrentIdShouldExist(Guid townId) =>
             _townRepository
                 .GetByIdAsync(townId)
                 .SomeNotNull(Error.Validation($"No town with ID {townId} was found."));

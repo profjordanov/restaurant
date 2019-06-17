@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Restaurant.Domain.Readers.Order;
+﻿using Restaurant.Domain.Readers.Order;
 using Restaurant.Domain.Repositories;
 using Restaurant.Domain.Specifications.Order;
 using Restaurant.Domain.Views.Meal;
 using Restaurant.Domain.Views.Order;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Restaurant.Persistence.Readers.Order
 {

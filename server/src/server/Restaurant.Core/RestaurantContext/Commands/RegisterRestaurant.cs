@@ -10,7 +10,7 @@ namespace Restaurant.Core.RestaurantContext.Commands
         {
         }
 
-        public RegisterRestaurant(string name, string townId, Guid ownerId)
+        public RegisterRestaurant(string name, Guid townId, Guid ownerId)
         {
             Name = name;
             TownId = townId;
