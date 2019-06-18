@@ -1,0 +1,42 @@
+version: "3.4"
+
+services:
+  restaurant.sql:
+    image: postgres:9.5
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+  restaurant.eventstore:
+    image: postgres:9.5
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+  restaurant.client:
+    image: restaurantclient
+    build:
+      context: ./client
+      dockerfile: ./Dockerfile
+      args:
+        REACT_APP_ENVIRONMENT: development
+    ports:
+      - "3000:3000"
+  restaurant.api:
+    image: restaurantapi
+    build:
+      context: ./server
+      dockerfile: ./src/server/Restaurant.Api/Dockerfile
+      args:
+        DOTNET_BUILD_CONFIGURATION: Debug
+        ASPNETCORE_ENVIRONMENT: Development
+    ports:
+      - "5000:80"
+      - "5100:443"
+    environment:
+      ASPNETCORE_HTTPS_PORT: 5100
+      ASPNETCORE_URLS: https://+;http://+
+    depends_on:
+      - restaurant.sql
+      - restaurant.eventstore
+    links:
+      - restaurant.sql:relationaldb
+      - restaurant.eventstore:eventstore

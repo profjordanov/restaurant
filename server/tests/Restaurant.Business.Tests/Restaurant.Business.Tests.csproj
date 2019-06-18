@@ -13,6 +13,10 @@
 
   <ItemGroup>
     <PackageReference Include="AutoFixture.Xunit2" Version="4.5.0" />
+    <PackageReference Include="coverlet.msbuild" Version="2.6.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.4" />
     <PackageReference Include="Microsoft.AspNetCore.CookiePolicy" Version="2.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.1.1" />
@@ -38,6 +42,18 @@
     <ProjectReference Include="..\..\src\server\Restaurant.Business\Restaurant.Business.csproj" />
     <ProjectReference Include="..\..\src\server\Restaurant.Core\Restaurant.Core.csproj" />
     <ProjectReference Include="..\..\src\server\Restaurant.Persistence\Restaurant.Persistence.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="mscorlib">
+      <HintPath>mscorlib</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <HintPath>System</HintPath>
+    </Reference>
+    <Reference Include="System.Core">
+      <HintPath>System.Core</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>
