@@ -12,24 +12,18 @@ using System.Threading.Tasks;
 
 namespace Restaurant.Business.Tests
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public class AppFixture
     {
         public static readonly string BaseUrl;
         private static readonly IConfiguration _configuration;
         private static readonly IServiceScopeFactory _scopeFactory;
 
-        public static string EventStoreConnectionString => _configuration.GetSection("EventStore")[ "ConnectionString" ];
-        public static string RelationalDbConnectionString => _configuration.GetConnectionString("DefaultConnection");
-
         static AppFixture()
         {
             BaseUrl = $"http://localhost:{GetFreeTcpPort()}";
 
             var webhost = Program
-                .CreateWebHostBuilder(new[] { "--environment", "IntegrationTests" }, BaseUrl)
+                .CreateWebHostBuilder(new string[] { "--environment", "IntegrationTests" }, BaseUrl)
                 .Build();
 
             webhost.Start();
@@ -43,6 +37,9 @@ namespace Restaurant.Business.Tests
                 _configuration = scope.ServiceProvider.GetService<IConfiguration>();
             }
         }
+
+        public static string EventStoreConnectionString => _configuration.GetSection("EventStore")[ "ConnectionString" ];
+        public static string RelationalDbConnectionString => _configuration.GetConnectionString("DefaultConnection");
 
         public Task ExecuteDbContextAsync(Func<ApplicationDbContext, Task> action) =>
             ExecuteScopeAsync(sp =>
@@ -60,13 +57,13 @@ namespace Restaurant.Business.Tests
                 return action(dbContext);
             });
 
-        public Task ExecuteHttpClientAsync(Func<HttpClient, Task> action, string accessToken = null)
+        public Task<TResult> ExecuteHttpClientAsync<TResult>(Func<HttpClient, Task<TResult>> action, string accessToken = null)
         {
             var client = BuildHttpClient(accessToken);
             return action(client);
         }
 
-        public Task<TResult> ExecuteHttpClientAsync<TResult>(Func<HttpClient, Task<TResult>> action, string accessToken = null)
+        public Task ExecuteHttpClientAsync(Func<HttpClient, Task> action, string accessToken = null)
         {
             var client = BuildHttpClient(accessToken);
             return action(client);
@@ -165,11 +162,12 @@ namespace Restaurant.Business.Tests
 
             return client;
         }
+
         private static int GetFreeTcpPort()
         {
-            var listener = new TcpListener(IPAddress.Loopback, 0);
+            TcpListener listener = new TcpListener(IPAddress.Loopback, 0);
             listener.Start();
-            var port = ((IPEndPoint) listener.LocalEndpoint).Port;
+            int port = ((IPEndPoint)listener.LocalEndpoint).Port;
             listener.Stop();
             return port;
         }

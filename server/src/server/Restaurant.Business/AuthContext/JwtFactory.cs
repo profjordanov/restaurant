@@ -55,17 +55,17 @@ namespace Restaurant.Business.AuthContext
 
         private static void ThrowIfInvalidOptions(JwtConfiguration options)
         {
-            if(options == null)
+            if (options == null)
             {
                 throw new ArgumentNullException(nameof(options));
             }
 
-            if(options.ValidFor <= TimeSpan.Zero)
+            if (options.ValidFor <= TimeSpan.Zero)
             {
                 throw new ArgumentException($"{nameof(options.ValidFor)} must be a non-zero TimeSpan.");
             }
 
-            if(options.SigningCredentials == null)
+            if (options.SigningCredentials == null)
             {
                 throw new ArgumentNullException(nameof(JwtConfiguration.SigningCredentials));
             }

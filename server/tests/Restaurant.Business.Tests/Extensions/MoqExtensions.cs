@@ -25,9 +25,9 @@ namespace Restaurant.Business.Tests.Extensions
             var stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            while(!hasBeenExecuted && !hasTimedOut)
+            while (!hasBeenExecuted && !hasTimedOut)
             {
-                if(stopwatch.ElapsedMilliseconds > timeoutInMs)
+                if (stopwatch.ElapsedMilliseconds > timeoutInMs)
                 {
                     hasTimedOut = true;
                 }
@@ -37,7 +37,7 @@ namespace Restaurant.Business.Tests.Extensions
                     mock.Verify(expression, times);
                     hasBeenExecuted = true;
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                 }
 
