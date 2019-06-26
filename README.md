@@ -21,7 +21,7 @@ Registered users can:
 ## Features
 
 1. Domain-Driven Design
-2. CQRS
+2. CQRS (Command and Query Responsibility Segregation pattern)
 3. Functional style command/query handlers
 4. Event-sourcing
 5. Real-time communications through SignalR
