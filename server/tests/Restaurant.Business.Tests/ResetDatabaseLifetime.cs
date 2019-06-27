@@ -31,17 +31,17 @@ namespace Restaurant.Business.Tests
             };
         }
 
-        public async Task InitializeAsync()
+        public async Task DisposeAsync()
         {
             await Reset(_relationalCheckpoint, AppFixture.RelationalDbConnectionString);
             await Reset(_eventStoreCheckpoint, AppFixture.EventStoreConnectionString);
         }
 
-        public Task DisposeAsync() => Task.CompletedTask;
+        public Task InitializeAsync() => Task.CompletedTask;
 
         private static async Task Reset(Checkpoint checkpoint, string connectionString)
         {
-            using (var connection = new NpgsqlConnection(connectionString))
+            using(var connection = new NpgsqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 await checkpoint.Reset(connection);
