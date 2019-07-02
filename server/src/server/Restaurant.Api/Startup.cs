@@ -43,6 +43,8 @@ namespace Restaurant.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+			services.AddSettings(Configuration);
+
             services.AddDbContext(Configuration.GetConnectionString("DefaultConnection"));
 
             services.AddDbConnectors();
@@ -72,6 +74,8 @@ namespace Restaurant.Api
             services.AddHttpContextAccessor();
 
             services.AddFileLoaderServices();
+
+            services.AddNotificationManager();
 
             services.AddMvc(options =>
             {

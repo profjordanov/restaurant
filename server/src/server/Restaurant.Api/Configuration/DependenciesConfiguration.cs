@@ -19,9 +19,11 @@ using Restaurant.Domain.Connectors;
 using Restaurant.Domain.Entities;
 using Restaurant.Domain.Events._Base;
 using Restaurant.Domain.Events.Restaurant;
+using Restaurant.Domain.FileLoaders;
 using Restaurant.Domain.Repositories;
 using Restaurant.Persistence.Connectors;
 using Restaurant.Persistence.EntityFramework;
+using Restaurant.Persistence.FileLoaders;
 using Restaurant.Persistence.Repositories;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
@@ -29,8 +31,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Restaurant.Domain.FileLoaders;
-using Restaurant.Persistence.FileLoaders;
 using MappingProfile = Restaurant.Core.AuthContext.MappingProfile;
 
 namespace Restaurant.Api.Configuration
@@ -218,6 +218,11 @@ namespace Restaurant.Api.Configuration
         public static void AddDatabaseLogger(this IServiceCollection services)
         {
             services.AddTransient<IAsyncLogger, AsyncDatabaseLogger>();
+        }
+
+        public static void AddNotificationManager(this IServiceCollection services)
+        {
+            services.AddScoped<INotificationManager, NotificationManager>();
         }
     }
 }

@@ -4,20 +4,20 @@ using Restaurant.Core._Base;
 using Restaurant.Core.OrderContext.Queries;
 using Restaurant.Domain;
 using Restaurant.Domain.Connectors;
+using Restaurant.Domain.Decorators.Order;
 using Restaurant.Domain.Extensions;
+using Restaurant.Domain.Readers.Order;
 using Restaurant.Domain.Repositories;
 using Restaurant.Domain.Specifications.Order;
 using Restaurant.Domain.Views.Meal;
 using Restaurant.Domain.Views.Order;
+using Restaurant.Persistence.Readers.Order;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.Common;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Restaurant.Domain.Decorators.Order;
-using Restaurant.Domain.Readers.Order;
-using Restaurant.Persistence.Readers.Order;
 
 namespace Restaurant.Business.OrderContext.QueryHandlers
 {
