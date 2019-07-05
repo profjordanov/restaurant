@@ -25,4 +25,4 @@ Registered users can:
 3. Functional style command/query handlers
 4. Event-sourcing
 5. Real-time communications through SignalR
-6.
+6. Fluent Validator
