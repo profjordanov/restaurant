@@ -26,3 +26,4 @@ Registered users can:
 4. Event-sourcing
 5. Real-time communications through SignalR
 6. Fluent Validator
+7. JWT authentication/authorization
