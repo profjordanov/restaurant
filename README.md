@@ -27,3 +27,4 @@ Registered users can:
 5. Real-time communications through SignalR
 6. Fluent Validator
 7. JWT authentication/authorization
+8. File logging with Serilog
