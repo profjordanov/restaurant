@@ -28,4 +28,3 @@ Registered users can:
 6. Fluent Validator
 7. JWT authentication/authorization
 8. File logging with Serilog
-9.
