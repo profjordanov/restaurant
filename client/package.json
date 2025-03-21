@@ -6,7 +6,7 @@
     "@aspnet/signalr": "^1.1.4",
     "@khanacademy/react-multi-select": "^0.3.2",
     "@opuscapita/react-signalr": "^3.3.0",
-    "bootstrap": "4.3.1",
+    "bootstrap": "5.0.0",
     "i": "^0.3.7",
     "npm": "^10.5.2",
     "prop-types": "15.7.2",
